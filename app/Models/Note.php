@@ -41,7 +41,7 @@ class Note extends Model
         if( $matiere->nom == 'Mathematique' && $matiere->ecole_id == 2 && in_array($parcour_code, $except) ){
           $matiere->coefficient = 2;
         }
-        if( $matiere->nom == '  Français' && $matiere->ecole_id == 2 && in_array($parcour_code, $except) ){
+        if( $matiere->nom == 'Anglais' && $matiere->ecole_id == 2 && in_array($parcour_code, $except) ){
           $matiere->coefficient = 1;
         }
 

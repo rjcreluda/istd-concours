@@ -42,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('admin', function(){
             return auth()->user()->type == 'admin';
         });
+        Blade::if('admin_controlleur', function(){
+            return auth()->user()->type == 'admin' || auth()->user()->type == 'controlleur' ;
+        });
         view()->share('concour_active', Concour::active()->get()->first() );
     }
 }

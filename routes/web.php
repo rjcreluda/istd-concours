@@ -17,6 +17,7 @@ use App\Http\Controllers\DataImportController;
 use App\Http\Controllers\ImpressionController;
 use App\Http\Controllers\CandidatSaisitController;
 use App\Http\Controllers\JuryController;
+use App\Http\Controllers\AfficheListeCandidatsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,11 +56,18 @@ Route::prefix('dashboard')->middleware('auth')->group( function(){
     Route::get('candidats/ecole/{ecole}/parcours/{parcour}', [CandidatsController::class, 'parcours'])->name('candidats.parcours');
 
     Route::get('candidats/operation/attribution', [CandidatsController::class, 'attribution'])->name('candidats.attribution');
+
     // Fiche de presence, selection centre examen
     Route::get('fiche-presence/centre-exam/{cycle}', [FichePresenceController::class, 'centre_examen'])->name('fiche.centre_exam');
     Route::get('candidats/fiche/presence', [FichePresenceController::class, 'index'])->name('fiche.centres');
     Route::get('fiche-presence/voir/{centre}/{salle?}', [FichePresenceController::class, 'voir'])->name('fiche.centre');
     Route::get('fiche-presence/voir-jury/{centre}/{jury?}', [FichePresenceController::class, 'voir_jury'])->name('fiche.jury');
+
+    // Liste candidats pur affiche
+    Route::get('liste-candidats/centre-exam', [AfficheListeCandidatsController::class, 'centre_examen'])->name('liste_candidat.centre_exam');
+    Route::get('liste-candidats/fiche/presence', [AfficheListeCandidatsController::class, 'index'])->name('liste_candidat.centres');
+    Route::get('liste-candidats/voir/{centre}/{parcours?}', [AfficheListeCandidatsController::class, 'voir'])->name('liste_candidat.centre');
+
     // Attribution salle numero et jury
     Route::get('candidats/operation/attribution/numero', [AttributionController::class, 'attribuer_numero_cadidat'])->name('candidats.attribution.numero');
     Route::get('candidats/operation/attribution/salle', [AttributionController::class, 'attribuer_salle_candidat'])->name('candidats.attribution.salle');

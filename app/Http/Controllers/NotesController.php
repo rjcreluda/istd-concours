@@ -22,7 +22,8 @@ class NotesController extends Controller
         $matieres[] = (object) [
           'id' => $matiere->id,
           'name' => $matiere->nom,
-          'coef' => $matiere->coefficient
+          'coef' => $matiere->coefficient,
+          'ecole_id' => $matiere->ecole_id,
         ];
       }
       // Liste des candidats

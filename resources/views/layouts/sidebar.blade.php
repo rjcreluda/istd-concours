@@ -32,7 +32,7 @@
                     <li><a href="{{ route('candidats.attribution') }}">Attribution</a></li>
                 </ul>
             </li>
-
+            @admin
             <li>
                 <a href="javascript:void(0);" class="waves-effect"><i class="ti-folder mr-2" data-icon="v"></i> <span class="hide-menu">Fiche de presence<span class="fa arrow"></span></span></a>
                 <ul class="nav nav-second-level">
@@ -40,7 +40,12 @@
                     <li><a href="{{ route('fiche.centre_exam', ['cycle' => '2nd-cycle']) }}">2nd cycle</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="{{ route('liste_candidat.centre_exam') }}" class="waves-effect"><i class="ti-folder mr-2" data-icon="v"></i> <span class="hide-menu">Liste candidats pour affiche</span></a>
+            </li>
+            @endif
 
+            @admin_controlleur
             <li><a href="javascript:void(0);" class="waves-effect"><i data-icon=")" class="ti-calendar mr-2"></i> <span class="hide-menu">Convocation<span class="fa arrow"></span></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="{{ route('convocation.par_jour') }}">Imprimer par jour</a></li>
@@ -51,6 +56,8 @@
 
             <li><a href="{{ route('candidats.saisit-du-jour')}}" class="waves-effect"><i data-icon=")" class="ti-calendar mr-2"></i> <span class="hide-menu">Saisie du jour</span></a>
             </li>
+            @endif
+
             @admin
             <li class="m-l-5 font-weight-bold">EGI</li>
             <li><a href="javascript:void(0);" class="waves-effect"><i class="ti-calendar p-r-10"></i> <span class="hide-menu">Notes EGI<span class="fa arrow"></span></span></a>

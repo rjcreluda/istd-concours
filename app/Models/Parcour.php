@@ -9,7 +9,7 @@ class Parcour extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'code', 'ecole_id', 'cycle' ];
+    protected $fillable = ['nom', 'code', 'ecole_id', 'cycle', 'niveau' ];
 
     public function candidats(){
       return $this->hasMany('App\Models\Candidat');

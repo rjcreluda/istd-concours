@@ -19,6 +19,7 @@ class CreateParcoursTable extends Migration
             $table->string('code');
             $table->integer('ecole_id');
             $table->integer('cycle');
+            $table->integer('niveau')->default(1);
             $table->timestamps();
         });
     }

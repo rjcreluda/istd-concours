@@ -126,13 +126,25 @@
             error: false,
             message: "en attente",
             //mode: null,
-            updateMode: true
+            updateMode: true,
+            parcours: null,
         },
         computed: {
             sum_coef(){
                 // Sum coefficient
-                let sum_coef = 0;
-                let coef_total = this.subjects.reduce( (accumulator, subject ) => accumulator + parseInt(subject.coef), sum_coef );
+                const except = ['GFC', 'TBA'];
+
+                let coef_total = 0;
+                for( let matiere of this.subjects ){
+                    if( matiere.name == "Mathematique" &&  matiere.ecole_id == 2 && except.includes( this.parcours.code) ){
+                        matiere.coef = 2;
+                    }
+                    if( matiere.name == "Anglais" &&  matiere.ecole_id == 2 && except.includes( this.parcours.code) ){
+                        matiere.coef = 1;
+                    }
+                    coef_total += Number( matiere.coef )
+                }
+
                 return coef_total;
             },
             last_id(){
@@ -274,6 +286,7 @@
 
             this.subjects =  <?php echo json_encode($matieres); ?>;
             this.candidats =  <?php echo json_encode($candidats); ?>;
+            this.parcours = <?php echo json_encode($parcours); ?>;
             this.sortCandidatsByMoyenne();
 
         }

@@ -234,7 +234,7 @@
                                                     @if( $candidat->parcour_id == $parcour->id)
                                                     selected
                                                     @endif
-                                                    >{{ $parcour->nom}}</option>
+                                                    >{{ $parcour->code }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

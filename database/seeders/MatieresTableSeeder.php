@@ -24,7 +24,7 @@ class MatieresTableSeeder extends Seeder
             array('nom' => 'Français', 'coefficient' => 2, 'ecole_id' => 2),
             array('nom' => 'Mathematique', 'coefficient' => 1, 'ecole_id' => 2),
             array('nom' => 'Culture Générale', 'coefficient' => 2, 'ecole_id' => 2),
-            array('nom' => 'Anglais', 'coefficient' => 1, 'ecole_id' => 2),
+            array('nom' => 'Anglais', 'coefficient' => 2, 'ecole_id' => 2),
             array('nom' => 'Test Psy', 'coefficient' => 1, 'ecole_id' => 2)
       ];
       foreach( $matieres as $matiere ){

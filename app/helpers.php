@@ -1,5 +1,23 @@
 <?php
 
+function niveau_etude( $n ){
+  switch( $n ){
+    case 1:
+      $niveau = 'dts';
+      break;
+    case 2:
+      $niveau = 'dtss';
+      break;
+    case 3:
+      $niveau = 'ingéniorat';
+      break;
+    default:
+      $niveau = '';
+      break;
+  }
+  return $niveau;
+}
+
 function dateToMySQL($date){
     $tabDate = explode('/' , $date);
     $date  = $tabDate[2].'-'.$tabDate[1].'-'.$tabDate[0];
