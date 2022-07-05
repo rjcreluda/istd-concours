@@ -42,24 +42,26 @@ class AttributionController extends Controller
 
     public function attribuer_salle_candidat(){
       $concour_active = Concour::active()->get()->first();
-      $parcours = Parcour::has('Candidats')->get();
+      $parcours = Parcour::all();
       $salles = Salle::all();
       foreach( $salles as $salle ){
         $salle_remplit = false;
+        $nombre_place = $salle->capacite;
         foreach( $parcours as $parcour ){
           // Getting candidats lists within that parcours in the current concours
           $candidats = Candidat::current()
-                          ->where('pacour_id', $parcour->id)
+                          ->where('parcour_id', $parcour->id)
                           ->where('salle_id', null) // qui n'appartient pas encore dans une salle
                           ->take(3) // on prend 3 candidats
                           ->get();
           if( count($candidats) > 0 ){
             foreach( $candidats as $candidat){
-              if( $salle->place_dispo >= 1 ){
+              if( $nombre_place >= 1 ){
                 $candidat->salle_id = $salle->id; // on place le candidat dans la salle
-                $salle->place_dispo--; // on decremente le nombre de place disponible dans la salle
+                $candidat->save();
+                $nombre_place--; // on decremente le nombre de place disponible dans la salle
               }
-              if( $salle->place_dispo == 0 ){
+              if( $nombre_place == 0 ){
                 $salle_remplit = true;
                 break;
               }
@@ -71,6 +73,8 @@ class AttributionController extends Controller
           } // on passe à la salle suivant si la salle actuel est déjà remplit
         }
       }
-      return 123;
+      $concour_active->salle_auto = 1;
+      $concour_active->save();
+      return true;
     }
 }

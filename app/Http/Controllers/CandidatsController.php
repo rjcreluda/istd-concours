@@ -33,12 +33,14 @@ class CandidatsController extends Controller
         return view('candidats.index')->with('parcours', $parcours)
                         ->with('ecole', $ecole);
     }
-
+    // Show list of candidants in one parcour
     public function parcours(Ecole $ecole, Parcour $parcour){
         $title = 'Liste des candidats en ' . $parcour->code;
+        $candidats = Candidat::current()->where('parcour_id', $parcour->id)->get();
         return view('candidats.parcours')
                     ->with('title', $title)
                     ->with('parcour', $parcour)
+                    ->with('candidats', $candidats)
                     ->with('parcours', Parcour::all());
     }
 

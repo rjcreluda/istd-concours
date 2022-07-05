@@ -46,7 +46,9 @@
                             </li>
                             <li>Attribution de salle: {{ $concours->salle_generated }}
                                 @if( !$concours->salle_auto )
-                                <a href="javascript:;" class="btn-modal" data-toggle="modal" data-target="#exampleModal">Générer</a>
+                                <a href="javascript:;" class="btn-modal" data-toggle="modal" data-target="#exampleModal2">Générer</a>
+                                @else
+                                    {{-- <a href="javascript:;" class="btn-modal" data-toggle="modal" data-target="#exampleModal2">re-Générer</a> --}}
                                 @endif
                             </li>
                         </ul>
@@ -128,7 +130,8 @@
                     success: function( resp ){
                         console.log( resp )
                         $('#status-text2').text('Terminé!')
-                        window.location.reload()
+                        $('#exampleModal2').modal('hide')
+                        //window.location.reload()
                     },
                     error: function( resp ){
                         console.log( resp )

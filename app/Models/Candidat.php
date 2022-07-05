@@ -24,6 +24,7 @@ class Candidat extends Model
       "anneeBacc",
       "parcour_id",
       "centre_id",
+      "salle_id",
       "concour_id",
       "num_arrive",
       "moyen_paiement",

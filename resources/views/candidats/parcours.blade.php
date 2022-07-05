@@ -43,7 +43,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($parcour->candidats as $c)
+                            @foreach($candidats as $c)
                             <tr>
                                 @if( $concour_active->num_auto )
                                 <td>{{ $c->numInscription }}</td>
