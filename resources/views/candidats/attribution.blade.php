@@ -41,10 +41,14 @@
                             <li>
                                 Numérotation des candidats: {{ $concours->num_generated }}
                                 @if( !$concours->num_auto )
-                                <a href="javascript:;" class="btn btn-info btn-modal" data-toggle="modal" data-target="#exampleModal">Générer</a>
+                                <a href="javascript:;" class="btn-modal" data-toggle="modal" data-target="#exampleModal">Générer</a>
                                 @endif
                             </li>
-                            <li>Attribution de salle: </li>
+                            <li>Attribution de salle: {{ $concours->salle_generated }}
+                                @if( !$concours->salle_auto )
+                                <a href="javascript:;" class="btn-modal" data-toggle="modal" data-target="#exampleModal">Générer</a>
+                                @endif
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -63,10 +67,24 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Generation</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Generation de numéro d'inscription</h5>
       </div>
       <div class="modal-body py-5">
         <span id="status-text">En cours...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal progression generation salle -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Generation répartition par salle</h5>
+      </div>
+      <div class="modal-body py-5">
+        <span id="status-text2">En cours...</span>
       </div>
     </div>
   </div>
@@ -95,6 +113,21 @@
                     success: function( resp ){
                         console.log( resp )
                         $('#status-text').text('Terminé!')
+                        window.location.reload()
+                    },
+                    error: function( resp ){
+                        console.log( resp )
+                    }
+               });
+            })
+
+            $('#exampleModal2').on('shown.bs.modal', function (e) {
+                $.ajax({
+                    type: 'GET',
+                    url: '{{ route('candidats.attribution.salle') }}',
+                    success: function( resp ){
+                        console.log( resp )
+                        $('#status-text2').text('Terminé!')
                         window.location.reload()
                     },
                     error: function( resp ){

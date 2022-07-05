@@ -9,4 +9,8 @@ class Salle extends Model
 {
     use HasFactory;
     protected $fillable = ['reference', 'localisation', 'capacite'];
+
+    public function candidats(){
+      return $this->hasMany('App\Models\Candidat');
+    }
 }

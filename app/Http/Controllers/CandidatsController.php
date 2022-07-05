@@ -64,20 +64,29 @@ class CandidatsController extends Controller
     {
         $request->validate([
             'nom' => 'required|string',
-            'sexe' => 'required|string',
+            'civilite' => 'required|string',
             'dateNaissance' => 'required',
+            'adresse' => 'required',
+            'lieuNaissance' => 'required',
             'centre_id' => 'required|integer',
             'parcour_id' => 'required|integer',
         ]);
-        //dd($request->all());
-        $c = new Candidat;
+
+        $data = $request->except(['_token']);
+        $data['concour_id'] = Concour::active()->get()->first()->id;
+        Candidat::create($data);
+
+        /*$c = new Candidat;
         $c->nom = $request->nom;
         $c->prenom = $request->prenom;
-        $c->sexe = $request->sexe;
+        $c->civilite = $request->civilite;
         $c->dateNaissance = $request->dateNaissance;
+        $c->lieuNaissance = $request->lieuNaissance;
+        $c->telephone = $request->telephone;
+        $c->code_postale = $request->code_postale;
         $c->centre_id = $request->centre_id;
         $c->parcour_id = $request->parcour_id;
-        $c->concour_id = Concour::active()->get()->first()->id; // a changer
+        $c->concour_id = Concour::active()->get()->first()->id;
         $c->email = $request->email;
         //$c->imageProfile = '';
         if( $request->file('imageProfile') ){
@@ -90,10 +99,9 @@ class CandidatsController extends Controller
             $request->file('imageProfile')->move($upload_dir, $new_name);
             $c->imageProfile = $upload_dir . $new_name;
         }
-        $c->telephone1 = $request->telephone1;
-        $c->telephone2 = $request->telephone2;
-        $c->save();
-        return redirect()->back()->with('success', 'Candidat créer avec succès');
+
+        $c->save();*/
+        return redirect()->back()->with('success', 'Candidat enregistré avec succès');
     }
 
     /**

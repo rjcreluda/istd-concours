@@ -37,7 +37,7 @@
                                 @endif
                                 <th>Nom</th>
                                 <th>Prénom</th>
-                                <th>Sexe</th>
+                                <th>Civilité</th>
                                 <th>Centre d'examen</th>
                                 <th>Action</th>
                             </tr>
@@ -50,7 +50,7 @@
                                 @endif
                             <td>{{ $c->nom }}</td>
                             <td>{{ $c->prenom }}</td>
-                            <td>{{ $c->sexe }}</td>
+                            <td>{{ $c->civilite }}</td>
                             <td>{{ $c->centre->lieu }}</td>
                             <td>
                                 <div class="btn-group">

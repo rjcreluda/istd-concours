@@ -12,14 +12,27 @@ class Candidat extends Model
       "numInscription",
       "nom",
       "prenom",
-      "sexe",
+      "civilite",
       "dateNaissance",
-      "centre_id",
+      "lieuNaissance",
+      "adresse",
+      "codePostale",
+      "telephone",
+      "candidatBacc",
+      "serieBacc",
+      "mentionBacc",
+      "anneeBacc",
       "parcour_id",
+      "centre_id",
+      "concour_id",
+      "num_arrive",
+      "moyen_paiement",
+      "num_mandat",
+      "date_envoie",
+      "date_arrive",
+      "dossier_ok",
       "email",
-      "telephone1",
-      "telephone2",
-      "concour_id"
+      "observation"
     );
 
     protected $appends = ['photo'];
@@ -30,6 +43,10 @@ class Candidat extends Model
 
     public function parcour(){
       return $this->belongsTo('App\Models\Parcour');
+    }
+
+    public function salle(){
+      return $this->belongsTo('App\Models\Salle');
     }
 
     public function centre(){

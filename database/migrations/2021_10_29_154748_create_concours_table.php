@@ -21,6 +21,7 @@ class CreateConcoursTable extends Migration
             $table->integer('nombre_candidat');
             $table->integer('active')->default(0);
             $table->boolean('num_auto')->default(0);
+            $table->boolean('salle_auto')->default(0);
             $table->timestamps();
         });
     }

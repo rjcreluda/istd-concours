@@ -15,7 +15,8 @@ class Concour extends Model
       'moyenne_deliberation',
       'nombre_candidat',
       'active',
-      'num_auto'
+      'num_auto',
+      'salle_auto'
     ];
     protected $appends = ['status', 'num_generated'];
 
@@ -29,6 +30,10 @@ class Concour extends Model
 
     public function getNumGeneratedAttribute(){
       return $this->num_auto ? 'attribué' : 'non attribué';
+    }
+
+    public function getSalleGeneratedAttribute(){
+      return $this->salle_auto ? 'attribué' : 'non attribué';
     }
 
     public function infos(){
