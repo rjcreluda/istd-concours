@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Salle;
+use App\Models\Candidat;
 use Illuminate\Http\Request;
 
 class SallesController extends Controller
@@ -16,6 +17,12 @@ class SallesController extends Controller
     {
         $salles = Salle::all();
         return view('salles.index')->with('salles', $salles);
+    }
+
+    public function liste()
+    {
+        $salles = Salle::all();
+        return view('salles.liste')->with('salles', $salles);
     }
 
     /**
@@ -53,7 +60,13 @@ class SallesController extends Controller
      */
     public function show(Salle $salle)
     {
-        //
+        $title = 'Liste des candidats en salle ' . $salle->reference;
+        $candidats = Candidat::current()->where('salle_id', $salle->id)->get();
+        return view('salles.show')
+                    ->with('title', $title)
+                    ->with('salle', $salle)
+                    ->with('candidats', $candidats)
+                    ->with('salles', Salle::all());
     }
 
     /**

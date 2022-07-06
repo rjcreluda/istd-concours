@@ -50,6 +50,7 @@ Route::prefix('dashboard')->middleware('auth')->group( function(){
     Route::get('/resultats/brute/{parcour?}', [ResultatsController::class, 'brute'])->name('resultats.brute');
     Route::get('/resultats/deliberation/{parcour?}', [ResultatsController::class, 'deliberation'])->name('resultats.deliberation');
     Route::resource('salles', SallesController::class);
+    Route::get('/salle/liste', [ SallesController::class, 'liste'])->name('salles.list');
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
     Route::put('/settings/appinfo', [SettingsController::class, 'appInfo'])->name('settings.appinfo');
     Route::put('/settings/concours', [SettingsController::class, 'concours'])->name('settings.concours');

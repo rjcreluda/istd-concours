@@ -41,7 +41,7 @@
     <link href="/resources/plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
 
     <!-- color CSS -->
-    <link href="/resources/css/colors/megna.css" id="theme" rel="stylesheet">
+    <link href="/resources/css/colors/blue.css" id="theme" rel="stylesheet">
 
     <link href="/resources/plugins/bower_components/datatables/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
 
