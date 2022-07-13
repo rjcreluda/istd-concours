@@ -24,7 +24,7 @@
                         <h4>Concours</h4>
                         <ul>
                             <li>Session active: {{ $concours->anneeUniv }}</li>
-                            <li>Date:
+                            <li>Date du concours:
                                 <ul>
                                     @foreach( $concours->infos as $info )
                                         <li>

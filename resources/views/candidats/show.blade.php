@@ -12,7 +12,7 @@
 
 <!-- Page Content -->
 @section('content')
-    @include('partials.page_title', ['title' => 'Nouveau candidat'])
+    @include('partials.page_title', ['title' => 'Info candidat'])
     <!-- /.row -->
     @include('partials.message')
     <!-- .row -->
