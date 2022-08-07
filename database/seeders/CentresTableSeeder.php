@@ -16,13 +16,14 @@ class CentresTableSeeder extends Seeder
     {
       $centres = [
         ['lieu' => 'Antsiranana', 'code' => '00'],
-        ['lieu' => 'Antanarivo', 'code' => '01'],
+        ['lieu' => 'Antananarivo', 'code' => '01'],
         ['lieu' => 'Mahajanga', 'code' => '03'],
         ['lieu' => 'Ambanja', 'code' => '06'],
         ['lieu' => 'Sambava', 'code' => '02'],
-        ['lieu' => 'Tamatave', 'code' => '04'],
+        ['lieu' => 'Toamasina', 'code' => '04'],
         ['lieu' => 'Ambositra', 'code' => '05'],
-        ['lieu' => 'Toliara', 'code' => '07']
+        ['lieu' => 'Toliara', 'code' => '07'],
+        ['lieu' => 'Fianarantsoa', 'code' => '08']
       ];
       foreach($centres as $centre){
         Centre::create([

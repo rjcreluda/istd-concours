@@ -1,0 +1,71 @@
+[
+  {
+    "ecoles": [
+      { "code": "EGI", "nom": "Ecole du Génie Industriel" },
+      { "code": "EGMCS", "nom": "Ecole du Génie Management Commerce et Service" },
+      { "code": "EGCN", "nom": "Ecole du genie civile et navale" }
+    ]
+  },
+  { "parcours": [
+    {
+      "code": "COM",
+      "nom": "Commerce",
+      "ecole": { "code": "EGMCS", "nom": "Ecole du Génie Management Commerce et Service" }
+    },
+    {
+      "code": "GFC",
+      "nom": "Gestion Finance et Comptable",
+      "ecole": { "code": "EGMCS", "nom": "Ecole du Génie Management Commerce et Service" }
+    },
+    {
+      "code": "MEEM",
+      "nom": "Maintenane en Equipement Eléctromecanique",
+      "ecole": { "code": "EGI", "nom": "Ecole du Génie Industriel" }
+    },
+    {
+      "code": "TBA",
+      "nom": "Technique Bancaire et Assurance",
+      "ecole": { "code": "EGMCS", "nom": "Ecole du Génie Management Commerce et Service" }
+    },
+    {
+      "code": "RT",
+      "nom": "Réseaux et Télécommunication",
+      "ecole": { "code": "EGI", "nom": "Ecole du Génie Industriel" }
+    },
+    {
+      "code": "TGH",
+      "nom": "Tourisme et Gestion Hotelierie",
+      "ecole": { "code": "EGMCS", "nom": "Ecole du Génie Management Commerce et Service" }
+    },
+    {
+      "code": "TECNA",
+      "nom": "Technologie Navale",
+      "ecole": { "code": "EGCN", "nom": "Ecole du genie civile et navale" }
+    },
+    {
+      "code": "TIM",
+      "nom": "Technologie de l'Information et Multimédia",
+      "ecole": { "code": "EGI", "nom": "Ecole du Génie Industriel" }
+    },
+    {
+      "code": "MEFT",
+      "nom": "Maintenane en Equipement Frigorifique et Thermique",
+      "ecole": { "code": "EGI", "nom": "Ecole du Génie Industriel" }
+    },
+    {
+      "code": "TP",
+      "nom": "Travaux Publique",
+      "ecole": { "code": "EGCN", "nom": "Ecole du genie civile et navale" }
+    },
+    {
+      "code": "BAT",
+      "nom": "Batiment",
+      "ecole": { "code": "EGCN", "nom": "Ecole du genie civile et navale" }
+    },
+    {
+      "code": "MSA",
+      "nom": "Maintenance des Systèmes Automatisés",
+      "ecole": { "code": "EGI", "nom": "Ecole du Génie Industriel" }
+    }
+  ]}
+]

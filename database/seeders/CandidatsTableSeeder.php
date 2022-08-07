@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Faker\Generator;
+use App\Models\Centre;
+use App\Models\Candidat;
+use App\Models\Parcour;
 
 class CandidatsTableSeeder extends Seeder
 {
@@ -14,7 +17,46 @@ class CandidatsTableSeeder extends Seeder
      */
     public function run()
     {
-      $ice = ['Koto', 'Paul', 'Jack', 'Marie', 'Fernand', 'Donal', 'Fleur', 'Pierre', 'Rick', 'Bosko', 'Dore', 'Frank', 'Luis', 'Bertin', 'Pascal', 'Ferdinand'];
+      $data = json_decode(file_get_contents( public_path() . "/candidats.json"), false);
+      $candidats = $data[2]->data;
+      if( count($candidats) > 0){
+        foreach( $candidats as $c ){
+          $centre = Centre::where('lieu', $c->Centre_Examen)->get()->first();
+          $parcour = Parcour::where('code', $c->Code_Parcours)->get()->first();
+          if( ! is_object($centre) ){
+            print_r( $c->Centre_Examen );
+          }
+          //$nom_complet = split(' ', string)
+          Candidat::create([
+          'nom' => $c->Nom_Prenom,
+          'prenom' => '',
+          'civilite' => $c->Civilite,
+          'dateNaissance' => $c->Date_Naissance,
+          'lieuNaissance' => $c->Lieu_Naissance,
+          'adresse' => $c->Adresse,
+          'codePostale' => $c->Code_Postal,
+          'email' => '',
+          'telephone' => $c->Num_Tel,
+          'candidatBacc' => $c->Type_candidat,
+          'serieBacc' => $c->Serie_Bacc,
+          'mentionBacc' => $c->Mention_Bacc,
+          'anneeBacc' => $c->Annee_Bacc,
+          'num_arrive' => (int) $c->Num_Arrive,
+          'moyen_paiement' => $c->Mode_Payment,
+          'num_mandat' => $c->Num_Payment,
+          'date_envoie' => $c->Date_Envoie,
+          'date_arrive' => $c->Date_Arrivee,
+          'observation' => $c->Observations,
+          'dossier_ok' => 1,
+          'imageProfile' => '',
+          'parcour_id' => $parcour->id,
+          'centre_id' => $centre->id,
+          'concour_id' => 2,
+          'user_id' => 1
+        ]);
+        }
+      }
+      /*$ice = ['Koto', 'Paul', 'Jack', 'Marie', 'Fernand', 'Donal', 'Fleur', 'Pierre', 'Rick', 'Bosko', 'Dore', 'Frank', 'Luis', 'Bertin', 'Pascal', 'Ferdinand'];
       $i = 1;
       foreach($ice as $candidat){
         \App\Models\Candidat::create([
@@ -72,6 +114,6 @@ class CandidatsTableSeeder extends Seeder
           'concour_id' => 2
         ]);
         $i++;
-      }
+      }*/
     }
 }

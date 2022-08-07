@@ -28,7 +28,7 @@ class CreateCandidatsTable extends Migration
             $table->string('serieBacc');
             $table->string('mentionBacc');
             $table->string('anneeBacc');
-            $table->integer('num_arrive');
+            $table->integer('num_arrive')->nullable();
             $table->string('moyen_paiement');
             $table->string('num_mandat');
             $table->string('date_envoie');
@@ -40,6 +40,7 @@ class CreateCandidatsTable extends Migration
             $table->integer('centre_id');
             $table->integer('concour_id');
             $table->integer('salle_id')->nullable();
+            $table->integer('user_id');
             $table->string('observation')->nullable();
             $table->timestamps();
         });

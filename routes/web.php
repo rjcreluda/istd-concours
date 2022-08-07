@@ -13,6 +13,7 @@ use App\Http\Controllers\ConcoursController;
 use App\Http\Controllers\ParcoursController;
 use App\Http\Controllers\AttributionController;
 use App\Http\Controllers\FichePresenceController;
+use App\Http\Controllers\DataImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,8 @@ Route::prefix('dashboard')->middleware('auth')->group( function(){
     Route::post('/parcours', [ParcoursController::class, 'store'])->name('parcours.store');
     Route::post('/parcours/update', [ParcoursController::class, 'update'])->name('parcours.update');
     Route::post('/parcours/delete', [ParcoursController::class, 'destroy'])->name('parcours.delete');
+
+    Route::get('/data-import', [ DataImportController::class, 'index'] );
 });
 Route::get('/', function(){
   return redirect()->to('/dashboard');
