@@ -52,6 +52,7 @@ class AttributionController extends Controller
           $candidats = Candidat::current()
                           ->where('parcour_id', $parcour->id)
                           ->where('salle_id', null) // qui n'appartient pas encore dans une salle
+                          ->where('centre_id', 1) // Centre Antiranana
                           ->take(3) // on prend 3 candidats
                           ->get();
           if( count($candidats) > 0 ){

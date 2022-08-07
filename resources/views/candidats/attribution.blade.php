@@ -38,15 +38,15 @@
                     <div class="col-sm-6 col-xs-12">
                         <h4>Attribution</h4>
                         <ul>
-                            <li>
+                            <li class="mb-2">
                                 Numérotation des candidats: {{ $concours->num_generated }}
                                 @if( !$concours->num_auto )
-                                <a href="javascript:;" class="btn-modal" data-toggle="modal" data-target="#exampleModal">Générer</a>
+                                <a href="javascript:;" class="btn btn-default btn-sm btn-modal" data-toggle="modal" data-target="#exampleModal">Générer</a>
                                 @endif
                             </li>
-                            <li>Attribution de salle: {{ $concours->salle_generated }}
+                            <li>Attribution de salle <span class="small">( cas Antsiranana )</span>: {{ $concours->salle_generated }}
                                 @if( !$concours->salle_auto )
-                                <a href="javascript:;" class="btn-modal" data-toggle="modal" data-target="#exampleModal2">Générer</a>
+                                <a href="javascript:;" class="btn btn-default btn-sm btn-modal" data-toggle="modal" data-target="#exampleModal2">Générer</a>
                                 @else
                                     {{-- <a href="javascript:;" class="btn-modal" data-toggle="modal" data-target="#exampleModal2">re-Générer</a> --}}
                                 @endif
@@ -115,7 +115,11 @@
                     success: function( resp ){
                         console.log( resp )
                         $('#status-text').text('Terminé!')
-                        window.location.reload()
+                        swal("Succès", "Génération terminé", "success")
+                        .then( function( value ){
+                            window.location.reload()
+                        })
+
                     },
                     error: function( resp ){
                         console.log( resp )
@@ -131,7 +135,11 @@
                         console.log( resp )
                         $('#status-text2').text('Terminé!')
                         $('#exampleModal2').modal('hide')
-                        //window.location.reload()
+                        swal("Succès", "Génération terminé", "success")
+                        .then( function( value ){
+                            window.location.reload()
+                        })
+
                     },
                     error: function( resp ){
                         console.log( resp )
