@@ -37,7 +37,9 @@ Route::prefix('dashboard')->middleware('auth')->group( function(){
     })->name('dashboard');
     Route::resource('candidats', CandidatsController::class);
 
-    Route::get('convocation/{candidat}', [ConvocationController::class, 'index'])->name('candidats.convocation');
+    //Route::get('convocation/{candidat}', [ConvocationController::class, 'index'])->name('candidats.convocation');
+    Route::get('convocation/parcours', [ConvocationController::class, 'liste_parcours'])->name('convocation.liste_parcours');
+    Route::get('convocation/parcours/{parcour}/preview', [ConvocationController::class, 'preview'])->name('convocation.preview');
 
     Route::get('candidats/ecole/{ecole}', [CandidatsController::class, 'ecole'])->name('candidats.ecole');
     Route::get('candidats/ecole/{ecole}/parcours/{parcour}', [CandidatsController::class, 'parcours'])->name('candidats.parcours');
