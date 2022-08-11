@@ -76,6 +76,7 @@ class CandidatsController extends Controller
 
         $data = $request->except(['_token']);
         $data['concour_id'] = Concour::active()->get()->first()->id;
+        $data['user_id'] = auth()->user()->id;
         Candidat::create($data);
 
         /*$c = new Candidat;
@@ -149,25 +150,18 @@ class CandidatsController extends Controller
     {
         $request->validate([
             'nom' => 'required|string',
-            'sexe' => 'required|string',
+            'civilite' => 'required|string',
             'dateNaissance' => 'required',
+            'adresse' => 'required',
+            'lieuNaissance' => 'required',
             'centre_id' => 'required|integer',
             'parcour_id' => 'required|integer',
         ]);
-        //dd($request->all());
-        $c = $candidat;
-        $c->nom = $request->nom;
-        $c->prenom = $request->prenom;
-        $c->sexe = $request->sexe;
-        $c->dateNaissance = $request->dateNaissance;
-        $c->centre_id = $request->centre_id;
-        $c->parcour_id = $request->parcour_id;
-        $c->concour_id = 1; // a changer
-        $c->email = $request->email;
-        $c->imageProfile = '';
-        $c->telephone1 = $request->telephone1;
-        $c->telephone2 = $request->telephone2;
-        $c->save();
+        $data = $request->except(['_token', '_method']);
+        $data['user_id'] = auth()->user()->id;
+        //dd($data);
+        Candidat::where('id', $candidat->id)->update( $data );
+
         return redirect()->back()->with('success', 'Information mis à jour');
     }
 
