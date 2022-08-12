@@ -79,31 +79,6 @@ class CandidatsController extends Controller
         $data['user_id'] = auth()->user()->id;
         Candidat::create($data);
 
-        /*$c = new Candidat;
-        $c->nom = $request->nom;
-        $c->prenom = $request->prenom;
-        $c->civilite = $request->civilite;
-        $c->dateNaissance = $request->dateNaissance;
-        $c->lieuNaissance = $request->lieuNaissance;
-        $c->telephone = $request->telephone;
-        $c->code_postale = $request->code_postale;
-        $c->centre_id = $request->centre_id;
-        $c->parcour_id = $request->parcour_id;
-        $c->concour_id = Concour::active()->get()->first()->id;
-        $c->email = $request->email;
-        //$c->imageProfile = '';
-        if( $request->file('imageProfile') ){
-            // There is an image to upload
-            $fullname = $request->file('imageProfile')->getClientOriginalName();
-            $filename = pathinfo($fullname, PATHINFO_FILENAME);
-            $file_extension = '.'.$request->file('imageProfile')->getClientOriginalExtension();
-            $new_name = $filename .'_'. time(). $file_extension;
-            $upload_dir = 'uploads/' . date('Y') . '/';
-            $request->file('imageProfile')->move($upload_dir, $new_name);
-            $c->imageProfile = $upload_dir . $new_name;
-        }
-
-        $c->save();*/
         return redirect()->back()->with('success', 'Candidat enregistré avec succès');
     }
 

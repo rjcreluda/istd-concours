@@ -2,6 +2,19 @@
 
 @section('title', 'Listes des Parcours')
 
+@section('style')
+    <style type="text/css">
+        .ascendent::after{
+            content: " \25B2";
+            cursor: pointer;
+        }
+        .descendent::after{
+            content: " \25BC";
+            cursor: pointer;
+        }
+    </style>
+@endsection
+
 <!-- Page Content -->
 @section('content')
     @include('partials.page_title', ['title' => 'Listes des Parcours'])
@@ -11,20 +24,27 @@
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
+                <div class="d-flex justify-content-end">
+                    <div class="form-group row">
+                        <div class="col-md-10">
+                            <input type="text" v-model="searchText" class="form-control" placeholder="Rechercher">
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive">
-                    <table id="tableData" class="display nowrap" cellspacing="0" width="100%">
+                    <table id="tableDataList" class="table table-sm display nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nom</th>
+                                    <th v-bind:class="order == 1 ? 'ascendent' : 'descendent'" @click.prevent="sortByNom">Nom</th>
                                     <th>Code</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                    <tr v-for="parcour in data_table">
-                                    <td>@{{ parcour.id }}</td>
+                                    <tr v-for="parcour in filteredItems" v-bind:key="parcour.id">
+                                    <td class="mt-5">@{{ parcour.id }}</td>
                                     <td>@{{ parcour.nom }}</td>
                                     <td>@{{ parcour.code }}</td>
                                     <td>
@@ -44,8 +64,9 @@
                             <tfoot>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nom</th>
+                                    <th v-bind:class="order == 1 ? 'ascendent' : 'descendent'" @click="sortByNom">Nom</th>
                                     <th>Code</th>
+                                    <th>Action</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -62,9 +83,9 @@
 
 @section('footerScript')
     @parent
-    <script src="{{ asset('resources/js/vue.min.js') }}"></script>
-<script src="{{ asset('resources/js/axios.min.js') }}"></script>
-<script>
+    <script src="{{ asset('resources/js/vue.js') }}"></script>
+    <script src="{{ asset('resources/js/axios.min.js') }}"></script>
+    <script>
 
 const vm = new Vue({
     el: '#page-wrapper',
@@ -78,9 +99,40 @@ const vm = new Vue({
             message: '',
             error: false,
             buttonText: 'Ajouter'
-        }
+        },
+        searchText: '',
+        order: 1
+    },
+    computed: {
+        filteredItems() {
+            let data = this.data_table
+            if( this.searchText.length > 2 ){
+                data = this.data_table.filter( (item) => {
+                    return item.nom.toLowerCase().includes(this.searchText.toLowerCase());
+                });
+            }
+            data = data.sort( (a, b) => {
+                let fa = a.nom.toLowerCase(),
+                    fb = b.nom.toLowerCase();
+
+                if (fa < fb) {
+                    return this.order * -1;
+                }
+                if (fa > fb) {
+                    return this.order * 1;
+                }
+                return 0;
+            });
+            return data
+        },
+    },
+    created(){
+        this.data_table = <?php echo json_encode($parcours); ?>
     },
     methods: {
+        sortByNom(){
+            return this.order *= -1
+        },
         edit(parcour){
             this.form.id = parcour.id;
             this.form.nom = parcour.nom;
@@ -148,9 +200,6 @@ const vm = new Vue({
             } );
         },
         toggleModal(){ $(this.$refs.modal).modal('toggle') }
-    },
-    created(){
-        this.data_table = <?php echo json_encode($parcours); ?>
     }
 });
 /*=============================================

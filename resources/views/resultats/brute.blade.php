@@ -39,7 +39,7 @@
                     <table id="tableData" class="display nowrap" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th>Rang</th>
+                                {{-- <th>Rang</th> --}}
                                 <th>Nom</th>
                                 <th>Moyenne</th>
                                 <th>Centre d'examen</th>
@@ -48,16 +48,16 @@
                         <tbody>
                             @foreach($candidats as $c)
                             <tr>
-                            <td>{{ $c->rang }}</td>
+                            {{-- <td>{{ $c->rang }}</td> --}}
                             <td>{{ $c->nom }}</td>
-                            <td>{{ $c->moyenne }}</td>
+                            <td>{{ format_note( $c->moyenne, 2 ) }}</td>
                             <td>{{ $c->centreExamen }}</td>
                             </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Rang</th>
+                                {{-- <th>Rang</th> --}}
                                 <th>Nom</th>
                                 <th>Moyenne</th>
                                 <th>Centre d'examen</th>
