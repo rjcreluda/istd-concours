@@ -54,10 +54,26 @@
                             <tr v-for="(student, index) in sortedCandidats" :key="index">
                                 <td>@{{ student.name }}</td>
                                 <td v-for="(notes, i) in student.notes">
-                                    <input v-if="student.notes[i].point == '0'" type="text" class="form-control text-danger" v-model="student.notes[i].point" @input="calculMoyenne( student, index, i, $event )" @blur="save(student, notes)" @keypress="isNumber(index, i, $event)">
-                                    <input v-else type="text" class="form-control" v-model="student.notes[i].point" @input="calculMoyenne( student, index, i, $event )" @blur="save(student, notes)" @keypress="isNumber(index, i, $event)">
+                                    <input
+                                        v-if="student.notes[i].point == '0'"
+                                        type="text"
+                                        class="form-control"
+                                        :class="{ 'bg-danger' : isBadNote(student.notes[i].point) }"
+                                        v-model="student.notes[i].point"
+                                        @input="calculMoyenne( student, index, i, $event )"
+                                        @blur="save(student, notes)"
+                                        @keypress="isNumber(index, i, $event)">
+                                    <input
+                                        v-else
+                                        type="text"
+                                        class="form-control"
+                                        :class="{ 'bg-danger' : isBadNote(student.notes[i].point) }"
+                                        v-model="student.notes[i].point"
+                                        @input="calculMoyenne( student, index, i, $event )"
+                                        @blur="save(student, notes)"
+                                        @keypress="isNumber(index, i, $event)">
                                 </td>
-                                <td>@{{ Intl.NumberFormat('fr-FR').format(student.moyenne) }}</td>
+                                <td>@{{ student.moyenne.toLocaleString('fr-FR', { style: 'decimal', minimumFractionDigits: 2} ) }}</td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -88,7 +104,7 @@
             });
         });
     </script>
-    <script src="{{ asset('resources/js/vue.min.js')}}"></script>
+    <script src="{{ asset('resources/js/vue.js')}}"></script>
     <script type="text/javascript">
 
     $.ajaxSetup({
@@ -124,7 +140,18 @@
             },
         },
         methods: {
+            // Convert number in french decimal to english decimal
+            // Ex: 2,5 => 2.5
+            numberFormat( input ){
+                return Number( input.replace(',', '.') );
+            },
+            // Check if note is eliminated
+            isBadNote( input ){
+                const note = this.numberFormat( input )
+                return note < 5 ? true: false
+            },
             /* Check if input value is a valid number */
+            // keypress callback
             isNumber(row, col, evt) {
                 //console.log(this.candidats[row]);
                 //console.log(this.candidats[row].notes[col]);
@@ -163,7 +190,10 @@
                 let moyenne = note_total / this.sum_coef;
 
                 //let curr = this.candidats.indexOf(student);
-                return moyenne.toFixed(2);
+                console.log(`Moyenne: ${moyenne}`);
+                moyenne = moyenne.toFixed(2);
+                console.log(`Moyenne arrondis: ${moyenne}`);
+                return moyenne;
             },
             sortCandidatsByMoyenne()
             {
@@ -186,15 +216,15 @@
                     }
                     else{
                         alert('Le note doit être entre 0 à 20');
-                        this.candidats[row].notes[col].point = '';
+                        this.candidats[row].notes[col].point = '0';
                     }
                 }
                 else if( curr_note == '' ){
                     student.moyenne = this.moyenne( student );
                 }
                 else{
-                    alert('Format incorrect');
-                    this.candidats[row].notes[col].point = '';
+                    alert('Format incorrect, veuillez utiliser virgule pour les nombres decimaux');
+                    this.candidats[row].notes[col].point = '0';
                     student.moyenne = this.moyenne( student );
                 }
 

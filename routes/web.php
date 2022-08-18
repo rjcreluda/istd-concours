@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CandidatsController;
+use App\Http\Controllers\ConvocationController;
 use App\Http\Controllers\NotesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ResultatsController;
@@ -34,6 +35,8 @@ Route::prefix('dashboard')->middleware('auth')->group( function(){
         return view('dashboard');
     })->name('dashboard');
     Route::resource('candidats', CandidatsController::class);
+
+    Route::get('convocation/{candidat}', [ConvocationController::class, 'index'])->name('candidats.convocation');
 
     Route::get('candidats/ecole/{ecole}', [CandidatsController::class, 'ecole'])->name('candidats.ecole');
     Route::get('candidats/ecole/{ecole}/parcours/{parcour}', [CandidatsController::class, 'parcours'])->name('candidats.parcours');

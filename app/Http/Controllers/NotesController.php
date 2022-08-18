@@ -24,7 +24,7 @@ class NotesController extends Controller
       }
       // Liste des candidats
       $candidats = array();
-      $candidats_liste = Candidat::where('parcour_id', $p->id)->get();
+      $candidats_liste = Candidat::current()->where('parcour_id', $p->id)->get();
       //dump($candidats);
 
       $all_parcours = Parcour::where('ecole_id', $p->ecole_id)->get();
@@ -53,26 +53,35 @@ class NotesController extends Controller
           //$mode = Note::INSERT_MODE;
           // create empty note for each matiere
           foreach($matieres as $matiere){
-              $note = (object) [
+              $data = [
                   'point' => '0',
                   'candidat_id' => $candidat->id,
                   'parcour_id' => $candidat->parcour_id ,
                   'matiere_id' => $matiere->id
               ];
+              $note = Note::create( $data );
               array_push($notes, $note);
-              Note::create(collect($note)->toArray());
+
           }
         }
         //dd($notes);
         // replacing '.' by ','
-        foreach($notes as $note){
+        /*foreach($notes as $note){
           $note['point'] = str_replace('.', ',', $note['point']);
-        }
+        }*/
+        $candidat_note = collect( $notes )->map( function($item){
+          $item['point'] = str_replace('.', ',', $item['point']);
+          return $item;
+        } );
+        //dd($test->toArray());
+        //$a = 2.5;
+        //$b = 3;
+        //dd( $a+$b );
         $candidats[] = (object) [
             'id' => $candidat->id,
             'rang' => $rang,
             'name' => strtoupper($candidat->nom).' '. $candidat->prenom,
-            'notes' => $notes,
+            'notes' => $candidat_note,
             'moyenne' => Note::moyenne($notes)
         ];
         $rang++;

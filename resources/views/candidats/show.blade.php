@@ -59,6 +59,7 @@
                         </div>
                     </div>
                     <hr>
+                    <a href="{{ route('candidats.convocation', ['candidat' => $candidat->id])}}">Convocation</a>
                 </div>
             </div>
         </div>
