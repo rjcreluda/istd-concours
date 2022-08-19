@@ -14,6 +14,7 @@ use App\Http\Controllers\ParcoursController;
 use App\Http\Controllers\AttributionController;
 use App\Http\Controllers\FichePresenceController;
 use App\Http\Controllers\DataImportController;
+use App\Http\Controllers\ImpressionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,10 +38,17 @@ Route::prefix('dashboard')->middleware('auth')->group( function(){
     })->name('dashboard');
     Route::resource('candidats', CandidatsController::class);
 
+    Route::get('print/preview', [ImpressionController::class, 'print'])->name('print.preview');
+
     //Route::get('convocation/{candidat}', [ConvocationController::class, 'index'])->name('candidats.convocation');
+
+    // Impression convocation
     Route::get('convocation/parcours', [ConvocationController::class, 'liste_parcours'])->name('convocation.liste_parcours');
     Route::get('convocation/parcours/{parcour}/preview', [ConvocationController::class, 'preview'])->name('convocation.preview');
+    Route::get('convocation/par_date', [ConvocationController::class, 'impression_par_date'])->name('convocation.par_date');
+    Route::get('convocation/par_jour', [ConvocationController::class, 'impression_par_jour'])->name('convocation.par_jour');
 
+    // Gestion candidats
     Route::get('candidats/ecole/{ecole}', [CandidatsController::class, 'ecole'])->name('candidats.ecole');
     Route::get('candidats/ecole/{ecole}/parcours/{parcour}', [CandidatsController::class, 'parcours'])->name('candidats.parcours');
 

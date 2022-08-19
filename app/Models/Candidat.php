@@ -36,10 +36,17 @@ class Candidat extends Model
       "observation"
     );
 
-    protected $appends = ['photo'];
+    protected $appends = ['photo', 'nomComplet', 'codeParcour'];
 
     public function getPhotoAttribute(){
       return $this->imageProfile != '' ? $this->imageProfile : '/resources/img/default/default.png';
+    }
+    public function getCodeParcourAttribute(){
+      return $this->parcour->code;
+    }
+
+    public function getNomCompletAttribute(){
+      return strtoupper($this->nom) . ' ' . ucwords( $this->prenom );
     }
 
     public function parcour(){

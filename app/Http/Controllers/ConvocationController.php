@@ -40,6 +40,37 @@ class ConvocationController extends Controller
       ->with('title', 'Impression convocation par parcours');
   }
 
+  public function impression_par_date( Request $request ){
+    $date = $request->get('date') ? dateToMySQL( $request->get('date') ) : null;
+    $data = array();
+    foreach( $this->parcoursRepo->getAll() as $p ){
+      $data[] = (object) array(
+        'id' => $p->id,
+        'nom' => $p->nom,
+        'nbr_candidats' => count( $this->parcoursRepo->candidats( $p->id, $date ) )
+      );
+    }
+    return view('convocation.par-date')
+      ->with('parcours', $data)
+      ->with('date', $request->get('date'))
+      ->with('title', 'Impression convocation par date');
+  }
+
+  public function impression_par_jour( Request $request ){
+    $date = date('Y-m-d');
+    $data = array();
+    foreach( $this->parcoursRepo->getAll() as $p ){
+      $data[] = (object) array(
+        'id' => $p->id,
+        'nom' => $p->nom,
+        'nbr_candidats' => count( $this->parcoursRepo->candidats( $p->id, $date ) )
+      );
+    }
+    return view('convocation.par_jour')
+      ->with('parcours', $data)
+      ->with('title', 'Impression par jour');
+  }
+
   // Appercu PDF avant impression
   public function preview(Request $request, Parcour $parcour){
     $pdf = new Html2Pdf();

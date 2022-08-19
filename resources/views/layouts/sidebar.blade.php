@@ -35,9 +35,9 @@
 
             <li><a href="javascript:void(0);" class="waves-effect"><i data-icon=")" class="ti-calendar mr-2"></i> <span class="hide-menu">Convocation<span class="fa arrow"></span></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="{{ route('convocation.liste_parcours') }}">Imprimer par jour</a></li>
+                    <li><a href="{{ route('convocation.par_jour') }}">Imprimer par jour</a></li>
                     <li><a href="{{ route('convocation.liste_parcours') }}">Imprimer un à un</a></li>
-                    <li><a href="{{ route('convocation.liste_parcours') }}">Imprimer par date</a></li>
+                    <li><a href="{{ route('convocation.par_date') }}">Imprimer par date</a></li>
                 </ul>
             </li>
 

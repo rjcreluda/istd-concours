@@ -12,6 +12,12 @@ function mySqlToDate($date){
     return $date;
 }
 
+function mySql_date_concours( $date1, $date2 ){
+    $tabDate1 = explode('-' , $date1);
+    $tabDate2 = explode('-' , $date2);
+    return $tabDate1[2] . ' et ' . $tabDate2[2] . '/' . $tabDate2[1] . '/' . $tabDate2[0];
+}
+
 function activeConcours(){
   return \App\Models\Concour::where('active', 1)->get()->first();
 }
