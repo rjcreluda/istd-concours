@@ -16,9 +16,11 @@ class Concour extends Model
       'nombre_candidat',
       'active',
       'num_auto',
-      'salle_auto'
+      'salle_auto',
+      'jury_auto',
+      'decret'
     ];
-    protected $appends = ['status', 'num_generated'];
+    protected $appends = ['status', 'num_generated', 'jury_generated'];
 
     public function scopeActive($query){
       return $query->where('active', 1);
@@ -30,6 +32,10 @@ class Concour extends Model
 
     public function getNumGeneratedAttribute(){
       return $this->num_auto ? 'attribué' : 'non attribué';
+    }
+
+    public function getJuryGeneratedAttribute(){
+      return $this->jury_auto ? 'attribué' : 'non attribué';
     }
 
     public function getSalleGeneratedAttribute(){

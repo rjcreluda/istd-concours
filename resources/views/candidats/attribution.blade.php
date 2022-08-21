@@ -44,9 +44,16 @@
                                 <a href="javascript:;" class="btn btn-default btn-sm btn-modal" data-toggle="modal" data-target="#exampleModal">Générer</a>
                                 @endif
                             </li>
-                            <li>Attribution de salle <span class="small">( cas Antsiranana )</span>: {{ $concours->salle_generated }}
+                            <li class="mb-2">Attribution de salle <span class="small">( cas Antsiranana )</span>: {{ $concours->salle_generated }}
                                 @if( !$concours->salle_auto )
                                 <a href="javascript:;" class="btn btn-default btn-sm btn-modal" data-toggle="modal" data-target="#exampleModal2">Générer</a>
+                                @else
+                                    {{-- <a href="javascript:;" class="btn-modal" data-toggle="modal" data-target="#exampleModal2">re-Générer</a> --}}
+                                @endif
+                            </li>
+                            <li class="mb-2">Attribution de jury <span class="small">( cas 2nd cycle )</span>: {{ $concours->jury_generated }}
+                                @if( !$concours->jury_auto )
+                                <a href="javascript:;" class="btn btn-default btn-sm btn-modal" data-toggle="modal" data-target="#exampleModal3">Générer</a>
                                 @else
                                     {{-- <a href="javascript:;" class="btn-modal" data-toggle="modal" data-target="#exampleModal2">re-Générer</a> --}}
                                 @endif
@@ -59,10 +66,10 @@
     </div>
 
     <div id="test-modal" class="mfp-hide white-popup-block">
-    <h1>Numerotation</h1>
-    <p>En cours ...</p>
-    <p>{{-- <a class="popup-modal-dismiss" href="#">Dismiss</a> --}}</p>
-</div>
+        <h1>Numerotation</h1>
+        <p>En cours ...</p>
+        <p>{{-- <a class="popup-modal-dismiss" href="#">Dismiss</a> --}}</p>
+    </div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -91,22 +98,27 @@
     </div>
   </div>
 </div>
+
+<!-- Modal progression generation de Jury -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel3">Generation de répartition des candidats du 2<sup>nd</sup> cycle par jury</h5>
+      </div>
+      <div class="modal-body py-5">
+        <span id="status-text3">En cours...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @section('footerScript')
     @parent
     <script>
         $(function () {
-            /*$('.popup-modal').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                focus: '#username',
-                modal: true
-            });
-            $(document).on('click', '.popup-modal-dismiss', function (e) {
-                e.preventDefault();
-                $.magnificPopup.close();
-            });*/
 
             $('#exampleModal').on('shown.bs.modal', function (e) {
                 $.ajax({
@@ -135,6 +147,26 @@
                         console.log( resp )
                         $('#status-text2').text('Terminé!')
                         $('#exampleModal2').modal('hide')
+                        swal("Succès", "Génération terminé", "success")
+                        .then( function( value ){
+                            window.location.reload()
+                        })
+
+                    },
+                    error: function( resp ){
+                        console.log( resp )
+                    }
+               });
+            })
+
+            $('#exampleModal3').on('shown.bs.modal', function (e) {
+                $.ajax({
+                    type: 'GET',
+                    url: '{{ route('candidats.attribution.jury') }}',
+                    success: function( resp ){
+                        console.log( resp )
+                        $('#status-text3').text('Terminé!')
+                        $('#exampleModal3').modal('hide')
                         swal("Succès", "Génération terminé", "success")
                         .then( function( value ){
                             window.location.reload()

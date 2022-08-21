@@ -68,7 +68,7 @@
     </div>
     <div>
     <p><strong>Réf :</strong>Voir ult&eacute;rieurement</p>
-    <p>{{ $candidat->civilite}} {{ $candidat->nom}} {{ $candidat->prenom }}</p>
+    <p>{{ ucfirst( $candidat->civilite ) }} {{ $candidat->nom}} {{ $candidat->prenom }}</p>
     <p><strong>Tél : </strong>{{ $candidat->telephone }}</p>
     <p><strong>Centre : </strong>{{ $candidat->centre->lieu }}</p>
     <div style="margin-left:20px;">

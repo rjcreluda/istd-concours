@@ -182,7 +182,7 @@
                                             <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                                             <select id="parcour" name="parcour_id" class="form-control" data-placeholder="Choisissez un parcour">
                                                 @foreach($parcours as $parcour )
-                                                <option value="{{$parcour->id}}">{{ $parcour->nom}}</option>
+                                                <option value="{{$parcour->id}}">{{ $parcour->code}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

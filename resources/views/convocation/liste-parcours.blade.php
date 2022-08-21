@@ -52,5 +52,5 @@
 @endsection
 
 @section('footerScript')
-
+    @parent
 @endsection

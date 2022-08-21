@@ -2,7 +2,7 @@
 
 <!-- Page Content -->
 @section('content')
-    @include('partials.page_title', ['title' => 'Candidats au concours'])
+    @include('partials.page_title', ['title' => 'Candidats ' . $ecole->code ])
     <!-- /.row -->
     <!-- .row -->
     <div class="row">
@@ -17,8 +17,13 @@
                                 {{ $parcour->code }}
                             </a>
                         </h4>
-                        <span class="text-muted">
-                            <a href="#"></a>
+                        <span class="text-mutted small">
+                            {{ $parcour->candidats_count }}
+                            @if( $parcour->candidats_count > 1 )
+                            candidats
+                            @else
+                            candidat
+                            @endif
                         </span>
                     </div>
                 </div>

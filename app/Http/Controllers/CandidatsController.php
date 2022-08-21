@@ -9,6 +9,7 @@ use App\Models\Ecole;
 use App\Models\Parcour;
 use App\Models\Centre;
 use App\Models\Concour;
+use App\Repositories\ParcoursRepository;
 
 class CandidatsController extends Controller
 {
@@ -29,7 +30,10 @@ class CandidatsController extends Controller
     }
 
     public function ecole(Ecole $ecole){
-        $parcours = Parcour::where('ecole_id', $ecole->id)->get();
+        $parcourRepository = new ParcoursRepository();
+        $parcours = $parcourRepository->getByEcole( $ecole->id );
+        //dd($parcours);
+        //$parcours = Parcour::where('ecole_id', $ecole->id)->get();
         return view('candidats.index')->with('parcours', $parcours)
                         ->with('ecole', $ecole);
     }
@@ -77,7 +81,8 @@ class CandidatsController extends Controller
         $data = $request->except(['_token']);
         $data['concour_id'] = Concour::active()->get()->first()->id;
         $data['user_id'] = auth()->user()->id;
-        Candidat::create($data);
+        //dd($data);
+        Candidat::create( $data );
 
         return redirect()->back()->with('success', 'Candidat enregistré avec succès');
     }

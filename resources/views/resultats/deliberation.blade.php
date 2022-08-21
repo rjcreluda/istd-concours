@@ -140,83 +140,83 @@
                 </div>
             `;
     $('#tableResultat').DataTable({
-    pageLength: 50,
-    autoWidth: true,
-    dom: 'Bfrtip',
-    buttons: [
-        {
-            extend: 'copy',
-            title: page_title,
-            exportOptions: {
-                columns: cols
-            }
-        },
-        {
-            extend: 'excel',
-            title: page_title,
-            exportOptions: {
-                columns: cols
-            }
-
-        },
-        {
-            extend: 'pdf',
-            title: '',
-            message: text_head,
-            exportOptions: {
-                columns: cols
+        pageLength: 50,
+        autoWidth: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'copy',
+                title: page_title,
+                exportOptions: {
+                    columns: cols
+                }
             },
-            customize: function(doc) {
+            {
+                extend: 'excel',
+                title: page_title,
+                exportOptions: {
+                    columns: cols
+                }
 
-                doc.styles.tableHeader.fontSize = 10;
-                doc.defaultStyle.fontSize =10;
-                doc.pageMargins = [50,50,50,10];
-                // Styling the table: create style object
-                var objLayout = {};
-                // Horizontal line thickness
-                objLayout['hLineWidth'] = function(i) { return .9; };
-                // Vertikal line thickness
-                objLayout['vLineWidth'] = function(i) { return .9; };
-                // Horizontal line color
-                objLayout['hLineColor'] = function(i) { return '#aaa'; };
-                // Vertical line color
-                objLayout['vLineColor'] = function(i) { return '#aaa'; };
-                // Left padding of the cell
-                objLayout['paddingLeft'] = function(i) { return 4; };
-                // Right padding of the cell
-                objLayout['paddingRight'] = function(i) { return 4; };
-                // Inject the object in the document
-                doc.content[1].layout = objLayout;
-            }
-        },
-        {
-            extend: 'print',
-            exportOptions: {
-                columns: [0,1,3]
             },
-            title: '',
-            message: text_head,
-            customize: function( win ){
-                let top = $('#tableResultat').offset().top + $('#tableResultat').height()
-                $(win.document.body).prepend(`<div style="position:absolute; top:${top}; left:0;">Arrêté la présente listeau nombre de ${vm.count} (${vm.candidats.length})</div>`)
+            {
+                extend: 'pdf',
+                title: '',
+                message: text_head,
+                exportOptions: {
+                    columns: cols
+                },
+                customize: function(doc) {
+
+                    doc.styles.tableHeader.fontSize = 10;
+                    doc.defaultStyle.fontSize =10;
+                    doc.pageMargins = [50,50,50,10];
+                    // Styling the table: create style object
+                    var objLayout = {};
+                    // Horizontal line thickness
+                    objLayout['hLineWidth'] = function(i) { return .9; };
+                    // Vertikal line thickness
+                    objLayout['vLineWidth'] = function(i) { return .9; };
+                    // Horizontal line color
+                    objLayout['hLineColor'] = function(i) { return '#aaa'; };
+                    // Vertical line color
+                    objLayout['vLineColor'] = function(i) { return '#aaa'; };
+                    // Left padding of the cell
+                    objLayout['paddingLeft'] = function(i) { return 4; };
+                    // Right padding of the cell
+                    objLayout['paddingRight'] = function(i) { return 4; };
+                    // Inject the object in the document
+                    doc.content[1].layout = objLayout;
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [0,1,3]
+                },
+                title: '',
+                message: text_head,
+                customize: function( win ){
+                    let top = $('#tableResultat').offset().top + $('#tableResultat').height()
+                    $(win.document.body).prepend(`<div style="position:absolute; top:${top}; left:0;">Arrêté la présente listeau nombre de ${vm.count} (${vm.candidats.length})</div>`)
+                }
+
+            },
+        ],
+
+        "language": {
+
+            "sSearch": "Recherche:",
+            "sInfo": "Affiche _START_ à _END_ de _TOTAL_ candidats",
+
+            "oPaginate":{
+                "sNext": "Suivant",
+                "sPrevious": "Avant"
             }
 
         },
-    ],
 
-    "language": {
-
-        "sSearch": "Recherche:",
-        "sInfo": "Affiche _START_ à _END_ de _TOTAL_ candidats",
-
-        "oPaginate":{
-            "sNext": "Suivant",
-            "sPrevious": "Avant"
-        }
-
-    },
-
-    "ordering": false
-});
+        "ordering": false
+    });
 </script>
 @endsection

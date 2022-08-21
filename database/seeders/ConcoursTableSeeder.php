@@ -25,7 +25,8 @@ class ConcoursTableSeeder extends Seeder
         'note_eliminatoire' => 8,
         'moyenne_deliberation' => 10,
         'nombre_candidat' => 30,
-        'active' => 0
+        'active' => 0,
+        'decret' => 'Decret n°123-456'
       ]);
       ConcourInfo::create([
             'concour_id' => $c1->id,
@@ -44,7 +45,8 @@ class ConcoursTableSeeder extends Seeder
         'note_eliminatoire' => 5,
         'moyenne_deliberation' => 10,
         'nombre_candidat' => 30,
-        'active' => 1
+        'active' => 1,
+        'decret' => 'Decret n°123-456-789'
       ]);
       ConcourInfo::create([
             'concour_id' => $c2->id,

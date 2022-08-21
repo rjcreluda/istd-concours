@@ -15,6 +15,8 @@ use App\Http\Controllers\AttributionController;
 use App\Http\Controllers\FichePresenceController;
 use App\Http\Controllers\DataImportController;
 use App\Http\Controllers\ImpressionController;
+use App\Http\Controllers\CandidatSaisitController;
+use App\Http\Controllers\JuryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,17 +57,27 @@ Route::prefix('dashboard')->middleware('auth')->group( function(){
     Route::get('candidats/operation/attribution', [CandidatsController::class, 'attribution'])->name('candidats.attribution');
     Route::get('candidats/fiche/presence', [FichePresenceController::class, 'index'])->name('fiche.centres');
     Route::get('candidats/fiche/presence/{centre}/{salle?}', [FichePresenceController::class, 'centre'])->name('fiche.centre');
+    // Attribution salle numero et jury
     Route::get('candidats/operation/attribution/numero', [AttributionController::class, 'attribuer_numero_cadidat'])->name('candidats.attribution.numero');
     Route::get('candidats/operation/attribution/salle', [AttributionController::class, 'attribuer_salle_candidat'])->name('candidats.attribution.salle');
+    Route::get('candidats/operation/attribution/jury', [AttributionController::class, 'attribuer_jury_candidat'])->name('candidats.attribution.jury');
 
+
+    Route::get('candidats/saisit/jour', [CandidatSaisitController::class, 'saisit_du_jour'])->name('candidats.saisit-du-jour');
+
+    // Gestion des notes
     Route::get('notes/saisit/{parcour}', [NotesController::class, 'transcription'])->name('notes.transcription');
     Route::post('notes/saisit', [NotesController::class, 'update'])->name('notes.update');
 
+    // Gestion utilisateurs
     Route::resource('users', UsersController::class);
     Route::get('/users/profile', [ UsersController::class, 'profile' ])->name('users.profile');
 
+    // Resultats concours
     Route::get('/resultats/brute/{parcour?}', [ResultatsController::class, 'brute'])->name('resultats.brute');
     Route::get('/resultats/deliberation/{parcour?}', [ResultatsController::class, 'deliberation'])->name('resultats.deliberation');
+    //Route::get('/resultats/final/{parcour?}', [ResultatsController::class, 'deliberation'])->name('resultats.deliberation');
+
     Route::resource('salles', SallesController::class);
     Route::get('/salle/liste', [ SallesController::class, 'liste'])->name('salles.list');
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
@@ -73,10 +85,20 @@ Route::prefix('dashboard')->middleware('auth')->group( function(){
     Route::put('/settings/concours', [SettingsController::class, 'concours'])->name('settings.concours');
     Route::resource('concours', ConcoursController::class);
 
+    // Parcours
     Route::get('/parcours', [ParcoursController::class, 'index'])->name('parcours.index');
     Route::post('/parcours', [ParcoursController::class, 'store'])->name('parcours.store');
     Route::post('/parcours/update', [ParcoursController::class, 'update'])->name('parcours.update');
     Route::post('/parcours/delete', [ParcoursController::class, 'destroy'])->name('parcours.delete');
+
+    // Jury
+    Route::get('/jury', [JuryController::class, 'index'])->name('jury.index');
+    Route::get('/jury/{jury}', [JuryController::class, 'show'])->name('jury.show');
+    Route::get('/jury/edit/{jury}', [JuryController::class, 'edit'])->name('jury.edit');
+    Route::post('/jury', [JuryController::class, 'store'])->name('jury.store');
+    Route::put('/jury/update/{jury}', [JuryController::class, 'update'])->name('jury.update');
+    Route::delete('/jury/delete/{jury}', [JuryController::class, 'destroy'])->name('jury.delete');
+
 
     Route::get('/data-import', [ DataImportController::class, 'index'] );
 });

@@ -7,6 +7,7 @@ use App\Models\Candidat;
 use App\Models\Parcour;
 use App\Models\Concour;
 use App\Models\Salle;
+use App\Models\Jury;
 
 class AttributionController extends Controller
 {
@@ -75,6 +76,34 @@ class AttributionController extends Controller
         }
       }
       $concour_active->salle_auto = 1;
+      $concour_active->save();
+      return true;
+    }
+
+    public function attribuer_jury_candidat(){
+      $concour_active = Concour::active()->get()->first();
+      // Parcours pour 2nd cycle
+      $parcours = Parcour::where('cycle', 2)->get();
+      $juries = Jury::where('concour_id', activeConcours()->id )->get();
+      foreach( $juries as $jury ){
+        foreach( $parcours as $parcour ){
+          // Getting candidats lists within that parcours in the current concours
+          // Only candidat in 2nd cycle
+          $candidats = Candidat::current()
+                          ->where('parcour_id', $parcour->id)
+                          ->where('jury_id', null) // qui n'appartient pas encore de jury
+                          ->where('centre_id', 1) // Centre Antiranana
+                          ->take(3) // on prend 3 candidats
+                          ->get();
+          if( count($candidats) > 0 ){
+            foreach( $candidats as $candidat){
+              $candidat->jury_id = $jury->id; // attribuer le jury du candidat
+              $candidat->save();
+            }
+          }
+        }
+      }
+      $concour_active->jury_auto = 1;
       $concour_active->save();
       return true;
     }

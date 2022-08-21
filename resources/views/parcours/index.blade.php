@@ -95,6 +95,7 @@ const vm = new Vue({
             id: 0,
             nom: '',
             ecole_id: undefined,
+            cycle: '1',
             code: '',
             message: '',
             error: false,
@@ -138,6 +139,7 @@ const vm = new Vue({
             this.form.nom = parcour.nom;
             this.form.ecole_id = parcour.ecole_id;
             this.form.code = parcour.code;
+            this.form.cycle = parcour.cycle;
             this.form.buttonText = 'Mettre à jour'
         },
         submit(){
@@ -149,7 +151,8 @@ const vm = new Vue({
                     id: this.form.id,
                     nom: this.form.nom,
                     code: this.form.code,
-                    ecole_id: this.form.ecole_id
+                    ecole_id: this.form.ecole_id,
+                    cycle: this.form.cycle
                 }
             }
             else{
@@ -157,7 +160,8 @@ const vm = new Vue({
                 data = {
                     nom: this.form.nom,
                     code: this.form.code,
-                    ecole_id: this.form.ecole_id
+                    ecole_id: this.form.ecole_id,
+                    cycle: this.form.cycle
                 }
             }
             axios.post(postUrl, data)

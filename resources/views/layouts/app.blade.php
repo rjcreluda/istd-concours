@@ -167,11 +167,11 @@
 
         $('#tableData').DataTable({
             dom: 'Bfrtip',
+            "pageLength": 30,
             buttons: [
-
                 {
                     extend: 'copy',
-              title: title,
+                    title: title,
                     exportOptions: {
                         columns: column
                     }
@@ -216,7 +216,7 @@
                 },
                 {
                     extend: 'print',
-              title: title,
+                    title: title,
                     exportOptions: {
                         columns: column
                     },

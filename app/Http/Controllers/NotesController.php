@@ -10,6 +10,9 @@ use App\Models\Note;
 
 class NotesController extends Controller
 {
+    public function __construct(){
+      $this->middleware('admin')->only('transcription');
+    }
     public function transcription($parcour){
       $p = Parcour::findOrFail($parcour);
       // Listes des matieres

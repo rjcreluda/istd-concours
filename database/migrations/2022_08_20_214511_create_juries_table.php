@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateParcoursTable extends Migration
+class CreateJuriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateParcoursTable extends Migration
      */
     public function up()
     {
-        Schema::create('parcours', function (Blueprint $table) {
+        Schema::create('juries', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('code');
-            $table->integer('ecole_id');
-            $table->integer('cycle');
+            $table->integer('concour_id');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateParcoursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parcours');
+        Schema::dropIfExists('juries');
     }
 }

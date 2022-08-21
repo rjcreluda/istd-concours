@@ -34,6 +34,16 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Cycle</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                    <select v-model="form.cycle" name="cycle" class="form-control" data-placeholder="Le cycle">
+                                        <option value="1">1<sub>er</sub> cycle</option>
+                                        <option value="2">2<sup>nd</sup> cycle </option>
+                                    </select>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">@{{ form.buttonText }}</button>
                             <!-- <button class="btn btn-inverse waves-effect waves-light">Annuler</button> -->
                         </form>

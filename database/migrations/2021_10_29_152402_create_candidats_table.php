@@ -42,6 +42,7 @@ class CreateCandidatsTable extends Migration
             $table->integer('salle_id')->nullable();
             $table->integer('user_id');
             $table->string('observation')->nullable();
+            $table->integer('jury_id')->nullable();
             $table->timestamps();
         });
     }

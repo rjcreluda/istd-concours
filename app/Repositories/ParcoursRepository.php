@@ -16,7 +16,7 @@ class ParcoursRepository extends BaseRepository{
   }
 
   /**
-   * Get lists of candidats
+   * Get lists of candidats for active concours
    * @param $parcour_id id of the parcours
    * @return $candidats - list of candidats belongs to that parcours
    * */
@@ -39,5 +39,23 @@ class ParcoursRepository extends BaseRepository{
 
   public function findById( $id ){
     return Parcour::findOrFail($id);
+  }
+
+  /**
+   * Get lists of parcours in 2nd cycle
+   * @param null
+   * @return Parcour $parcours - list of parcours
+   * */
+  public function getSecondCycle(){
+    return Parcour::where('cycle', 2)->get();
+  }
+
+  public function getByEcole( $ecole_id ){
+    $parcours = Parcour::where('ecole_id', $ecole_id)->get();
+    $parcours = $parcours->map( function($parcour){
+      $parcour->candidats_count = count( $this->candidats( $parcour->id ) );
+      return $parcour;
+    });
+    return $parcours;
   }
 }

@@ -4,7 +4,7 @@
 
 <!-- Page Content -->
 @section('content')
-    @include('partials.page_title', ['title' => 'Liste des utilisateurs'])
+    @include('partials.page_title', ['title' => 'Compte'])
     <!-- /.row -->
     @include('partials.message')
     <!-- .row -->

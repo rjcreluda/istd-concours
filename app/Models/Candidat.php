@@ -33,16 +33,22 @@ class Candidat extends Model
       "date_arrive",
       "dossier_ok",
       "email",
-      "observation"
+      "observation",
+      "jury_id",
+      "user_id"
     );
 
-    protected $appends = ['photo', 'nomComplet', 'codeParcour'];
+    protected $appends = ['photo', 'nomComplet', 'codeParcour', 'cycle'];
 
     public function getPhotoAttribute(){
       return $this->imageProfile != '' ? $this->imageProfile : '/resources/img/default/default.png';
     }
     public function getCodeParcourAttribute(){
       return $this->parcour->code;
+    }
+
+    public function getCycleAttribute(){
+      return $this->parcour->cycle;
     }
 
     public function getNomCompletAttribute(){
