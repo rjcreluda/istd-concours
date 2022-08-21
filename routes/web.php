@@ -55,8 +55,11 @@ Route::prefix('dashboard')->middleware('auth')->group( function(){
     Route::get('candidats/ecole/{ecole}/parcours/{parcour}', [CandidatsController::class, 'parcours'])->name('candidats.parcours');
 
     Route::get('candidats/operation/attribution', [CandidatsController::class, 'attribution'])->name('candidats.attribution');
+    // Fiche de presence, selection centre examen
+    Route::get('fiche-presence/centre-exam/{cycle}', [FichePresenceController::class, 'centre_examen'])->name('fiche.centre_exam');
     Route::get('candidats/fiche/presence', [FichePresenceController::class, 'index'])->name('fiche.centres');
-    Route::get('candidats/fiche/presence/{centre}/{salle?}', [FichePresenceController::class, 'centre'])->name('fiche.centre');
+    Route::get('fiche-presence/voir/{centre}/{salle?}', [FichePresenceController::class, 'voir'])->name('fiche.centre');
+    Route::get('fiche-presence/voir-jury/{centre}/{jury?}', [FichePresenceController::class, 'voir_jury'])->name('fiche.jury');
     // Attribution salle numero et jury
     Route::get('candidats/operation/attribution/numero', [AttributionController::class, 'attribuer_numero_cadidat'])->name('candidats.attribution.numero');
     Route::get('candidats/operation/attribution/salle', [AttributionController::class, 'attribuer_salle_candidat'])->name('candidats.attribution.salle');

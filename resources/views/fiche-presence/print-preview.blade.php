@@ -23,7 +23,7 @@
   }
     .liste{
         border-collapse: collapse;
-    font-size:15px;
+        font-size:15px;
     }
     .liste tr td{
         border: 1px solid;
@@ -59,11 +59,14 @@
     <img src="logo_ist.png">
   </div>
     <div class='titre'>
-  <h4>Concours d'entrée en formation de DTS</h4>
+  <h4>Concours d'entrée en formation de {{ strtoupper($niveau) }}</h4>
     <h4>Session du {{ mySql_date_concours($concours_date[0], $concours_date[1]) }}</h4>
   <h4>Centre {{ $centre->lieu }}</h4>
   @isset( $salle )
-    <h4>Salle {{ $salle->reference }}</h4>
+    <h4>Salle: {{ $salle->reference }}</h4>
+  @endisset
+  @isset( $jury )
+    <h4>Jury: {{ $jury->nom }}</h4>
   @endisset
   <h4>Date:_____________ Epreuve:____________________________ Heure:_______________</h4>
     </div>

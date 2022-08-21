@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Liste des salles')
+@section('title', 'Liste des juris')
 
 @section('style')
 <style>
@@ -12,7 +12,7 @@
 
 <!-- Page Content -->
 @section('content')
-    @include('partials.page_title', ['title' => 'Salles d\'examen'])
+    @include('partials.page_title', ['title' => 'Liste des juris'])
     <!-- /.row -->
     @php
         $doc_title = 'Candidats au centres '.$centre->code
@@ -33,28 +33,26 @@
                         @endforeach
                     </select>
                 </div>
-                <h3 class="box-title m-b-0">Liste des salles</h3>
+                <h3 class="box-title m-b-0">Liste des jury</h3>
                 {{-- <p class="text-muted m-b-30">Exporter en Copie, Excel, PDF & Impression</p> --}}
 
                 <div class="table-responsive">
                     <table id="tableData" class="display nowrap" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th>Reference</th>
-                                <th>Localisation</th>
-                                <th>Capacité</th>
+                                <th>#</th>
+                                <th>Nom et prénom(s)</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($salles as $c)
+                            @foreach($jury as $j)
                             <tr>
-                            <td>{{ $c->reference }}</td>
-                            <td>{{ $c->localisation }}</td>
-                            <td>{{ $c->capacite }}</td>
+                            <td>{{ $j->id }}</td>
+                            <td>{{ $j->nom }}</td>
                             <td>
                                 <div class="btn-group">
-                                <a href="{{ route('fiche.centre', ['centre' => $centre, 'salle' => $c])}}?cycle=1er-cycle" title="voir">
+                                <a href="{{ route('fiche.jury', ['centre' => $centre, 'jury' => $j])}}" title="voir">
                                     <button type="button" class="btn btn-info btnVoirProfile"><i class="fa fa-eye"></i></button>
                                 </a>
                                 </div>
@@ -64,9 +62,8 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Reference</th>
-                                <th>Localisation</th>
-                                <th>Capacité</th>
+                                <th>#</th>
+                                <th>Nom et prénom(s)</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -85,6 +82,8 @@
             let centre_id = $(this).val();
             let current_url = window.location.href;
             let url = current_url.substring(0, current_url.lastIndexOf('/')) + '/' + centre_id;
+            const cycle = '{{ $cycle }}';
+            url = url + '?cycle=' + cycle;
             window.location.href = url;
         });
 

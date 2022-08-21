@@ -29,8 +29,15 @@
                     <li><a href="{{ route('candidats.ecole', ['ecole' => $ecole->id])}}">{{ $ecole->code }}</a></li>
                     @endforeach
                     <li><a href="{{ route('salles.list') }}">Liste par salle</a></li>
-                    <li><a href="{{ route('fiche.centres') }}">Fiche de presence</a></li>
                     <li><a href="{{ route('candidats.attribution') }}">Attribution</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript:void(0);" class="waves-effect"><i class="ti-folder mr-2" data-icon="v"></i> <span class="hide-menu">Fiche de presence<span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{ route('fiche.centre_exam', ['cycle' => '1er-cycle']) }}">1er cycle</a></li>
+                    <li><a href="{{ route('fiche.centre_exam', ['cycle' => '2nd-cycle']) }}">2nd cycle</a></li>
                 </ul>
             </li>
 

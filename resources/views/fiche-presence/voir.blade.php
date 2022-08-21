@@ -46,10 +46,12 @@
                         </select>
                         @endisset
                     </div>
-                    @isset( $salle )
-                        <a href="{{ route('print.preview') }}?type=fiche-presence&centre_id={{$centre->id}}&salle_id={{$salle->id}}" class="btn btn-default">Imprimer la fiche</a>
+                    @if( isset($salle) )
+                        <a href="{{ route('print.preview') }}?type=fiche-presence&centre_id={{$centre->id}}&salle_id={{$salle->id}}&niveau=dts" class="btn btn-default">Imprimer la fiche</a>
+                    @elseif( isset($jury) )
+                        <a href="{{ route('print.preview') }}?type=fiche-presence&centre_id={{$centre->id}}&jury_id={{$jury->id}}&niveau=dtss-ing" class="btn btn-default">Imprimer la fiche</a>
                     @else
-                        <a href="{{ route('print.preview') }}?type=fiche-presence&centre_id={{$centre->id}}" class="btn btn-default">Imprimer la fiche</a>
+                        <a href="{{ route('print.preview') }}?type=fiche-presence&centre_id={{$centre->id}}&niveau=dts" class="btn btn-default">Imprimer la fiche</a>
                     @endisset
 
                 </div>
@@ -104,7 +106,8 @@
         $('#centres').change( function() {
             let centre_id = $(this).val();
             let current_url = window.location.href;
-            let url = window.location.origin + '/dashboard/candidats/fiche/presence' + '/' + centre_id;
+            let cycle = '{{ $cycle }}';
+            let url = window.location.origin + '/dashboard/fiche-presence/voir' + '/' + centre_id + '?cycle=' + cycle;
             window.location.href = url;
         });
 

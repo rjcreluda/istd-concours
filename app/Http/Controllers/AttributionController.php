@@ -43,7 +43,9 @@ class AttributionController extends Controller
 
     public function attribuer_salle_candidat(){
       $concour_active = Concour::active()->get()->first();
-      $parcours = Parcour::all();
+      //$parcours = Parcour::all();
+      // Parcours pour 1er cycle
+      $parcours = Parcour::where('cycle', 1)->get();
       $salles = Salle::all();
       foreach( $salles as $salle ){
         $salle_remplit = false;
@@ -53,7 +55,7 @@ class AttributionController extends Controller
           $candidats = Candidat::current()
                           ->where('parcour_id', $parcour->id)
                           ->where('salle_id', null) // qui n'appartient pas encore dans une salle
-                          ->where('centre_id', 1) // Centre Antiranana
+                          ->where('centre_id', 1) // Centre Antsiranana
                           ->take(3) // on prend 3 candidats
                           ->get();
           if( count($candidats) > 0 ){

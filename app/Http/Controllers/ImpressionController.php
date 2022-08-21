@@ -9,6 +9,7 @@ use App\Models\Candidat;
 use App\Models\Parcour;
 use App\Models\Centre;
 use App\Models\Salle;
+use App\Models\Jury;
 
 class ImpressionController extends Controller
 {
@@ -28,7 +29,10 @@ class ImpressionController extends Controller
         $query = Candidat::query();
         $query = $query->current()->where( 'centre_id', $centre_id );
         $candidats = $query->when( $request->get('salle_id'), function($q) use($request){
-          $q->where( 'salle_id', $request->get('salle_id') );
+          $q->where( 'salle_id', $request->get('salle_id') )->orderBy('nom');
+        } )->get();
+        $candidats = $query->when( $request->get('jury_id'), function($q) use($request){
+          $q->where( 'jury_id', $request->get('jury_id') )->orderBy('nom');
         } )->get();
         //$candidats = Candidat::current()->where('centre_id', $centre_id)->get();
         $concours = activeConcours();
@@ -44,10 +48,14 @@ class ImpressionController extends Controller
           'date_actuel' => $now,
           'concours' =>  activeConcours(),
           'concours_date' => array( $cycle_1[0]->date_1, $cycle_1[0]->date_2 ),
-          'centre' => $centre
+          'centre' => $centre,
+          'niveau' => $request->get('niveau')
         ];
         if( $request->get('salle_id') ){
           $data['salle'] = Salle::find( $request->get('salle_id') );
+        }
+        if( $request->get('jury_id') ){
+          $data['jury'] = Jury::find( $request->get('jury_id') );
         }
         $content = view('fiche-presence.print-preview', $data )->render();
         $this->pdf->writeHTML( $content );
