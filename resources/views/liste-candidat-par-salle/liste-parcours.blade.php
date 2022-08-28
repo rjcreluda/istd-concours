@@ -33,7 +33,7 @@
                         @endforeach
                     </select>
                 </div>
-                <h3 class="box-title m-b-0">Liste des salles</h3>
+
                 {{-- <p class="text-muted m-b-30">Exporter en Copie, Excel, PDF & Impression</p> --}}
 
                 <div class="table-responsive">

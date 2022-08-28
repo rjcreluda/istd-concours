@@ -2,8 +2,9 @@
 namespace App\Repositories;
 
 use App\Models\Candidat;
+use App\Models\Ecole;
 
-class CandidatsRepository extends BaseRepository{
+class CandidatRepository extends BaseRepository{
   protected $candidats;
 
   public function __construct( $id = null ){
@@ -39,11 +40,10 @@ class CandidatsRepository extends BaseRepository{
   }
 
   public function getByEcole( $ecole_id ){
-    $candidats = Candidat::where('ecole_id', $ecole_id)->get();
-    $candidats = $candidats->map( function($parcour){
-      $parcour->candidats_count = count( $this->candidats( $parcour->id ) );
-      return $parcour;
-    });
-    return $candidats;
+    $id = (int) $ecole_id;
+    $ecole = Ecole::find($id);
+    $all_candidats = $ecole->candidats()->where('concour_id', activeConcours()->id)->get();
+    return $all_candidats;
   }
+
 }

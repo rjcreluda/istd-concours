@@ -45,4 +45,8 @@ class Concour extends Model
     public function infos(){
       return $this->hasMany(ConcourInfo::class);
     }
+
+    public function candidats(){
+      return $this->hasMany( Candidat::class );
+    }
   }

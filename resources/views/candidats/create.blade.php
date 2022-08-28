@@ -145,10 +145,17 @@
                                         <label for="serieBacc">Série BACC</label>
                                         <select name="serieBacc" id="serieBacc" class="form-control">
                                             <option value=""></option>
-                                            <option value="A">A</option>
-                                            <option value="C">C</option>
+                                            <option value="Equiv">Equiv</option>
+                                            <option value="A2">A2</option>
+                                            <option value="Tech. Ind">Tech. Ind</option>
+                                            <option value="G1">G1</option>
+                                            <option value="A1">A1</option>
                                             <option value="D">D</option>
-                                            <option value="technique">Technique</option>
+                                            <option value="G2">G2</option>
+                                            <option value="C">C</option>
+                                            <option value="Tech. GC">Tech. GC</option>
+                                            <option value="S">S</option>
+                                            <option value="L">L</option>
                                         </select>
                                     </div>
                                 </div>
@@ -157,10 +164,11 @@
                                         <label for="mentionBacc">Mention BACC</label>
                                         <select name="mentionBacc" id="mentionBacc" class="form-control">
                                             <option value=""></option>
-                                            <option value="passable">Passable</option>
-                                            <option value="assez-bien">Assez-Bien</option>
-                                            <option value="bien">Bien</option>
-                                            <option value="tres-bien">Très Bien</option>
+                                            <option value="Passable">Passable</option>
+                                            <option value="Assez bien">Assez-Bien</option>
+                                            <option value="Assez">Assez</option>
+                                            <option value="Bien">Bien</option>
+                                            <option value="Très bien">Très Bien</option>
                                         </select>
                                     </div>
                                 </div>

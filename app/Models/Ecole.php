@@ -12,4 +12,8 @@ class Ecole extends Model
     public function parcours(){
       return $this->hasMany('App\Models\Parcour');
     }
+
+    public function candidats(){
+      return $this->hasManyThrough( Candidat::class, Parcour::class );
+    }
 }

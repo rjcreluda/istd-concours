@@ -14,7 +14,7 @@ use App\Models\Jury;
 class ImpressionController extends Controller
 {
     public function __construct(){
-      $this->pdf = new Html2Pdf();
+      $this->pdf = new Html2Pdf('P','A4','fr');
       $this->pdf->setDefaultFont('Arial');
       $this->now = utf8_encode( strftime('%d %B %Y')) ;
     }
@@ -27,14 +27,15 @@ class ImpressionController extends Controller
       if( $request->get('type') && $request->get('centre_id') ){
         $type = $request->get('type');
         if( $type == 'fiche-presence' ){
+          // Impression fiche de presence
           $data = $this->data_fiche_presence( $request );
           $content = view('fiche-presence.print-preview', $data['content'] )->render();
         }
         else if( $type == 'liste-candidat' ){
+          // Impression liste candidats (par centre/parcours avec salle) pour affiche
           $data = $this->data_liste_candidats( $request );
           $content = view('liste-candidat-par-salle.print-preview', $data['content'] )->render();
         }
-
 
         $this->pdf->writeHTML( $content );
         $str = $this->pdf->output('', 'S');
@@ -68,6 +69,7 @@ class ImpressionController extends Controller
           'concours' =>  activeConcours(),
           'concours_date' => array( $cycle_1[0]->date_1, $cycle_1[0]->date_2 ),
           'centre' => $centre,
+          'parcour' => $parcour,
           'niveau' => niveau_etude( $parcour->niveau )
         ];
       $fichier = 'liste-candidats-'.$parcour->code."-print-".date('dmy').".pdf";

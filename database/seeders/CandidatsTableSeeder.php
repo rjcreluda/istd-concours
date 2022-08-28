@@ -56,11 +56,11 @@ class CandidatsTableSeeder extends Seeder
         ]);
         }
       }
-      /*$ice = ['Koto', 'Paul', 'Jack', 'Marie', 'Fernand', 'Donal', 'Fleur', 'Pierre', 'Rick', 'Bosko', 'Dore', 'Frank', 'Luis', 'Bertin', 'Pascal', 'Ferdinand'];
+      $ice = ['Koto', 'Paul', 'Jack', 'Marie', 'Fernand', 'Donal', 'Fleur', 'Pierre', 'Rick', 'Bosko', 'Dore', 'Frank', 'Luis', 'Bertin', 'Pascal', 'Ferdinand'];
       $i = 1;
       foreach($ice as $candidat){
         \App\Models\Candidat::create([
-          'nom' => 'Jean',
+          'nom' => 'Jean msa',
           'prenom' => $candidat,
           'civilite' => 'monsieur',
           'dateNaissance' => '',
@@ -78,15 +78,17 @@ class CandidatsTableSeeder extends Seeder
           'num_mandat' => '',
           'date_envoie' => '',
           'date_arrive' => '',
+          'observation' => '',
           'dossier_ok' => 1,
           'imageProfile' => '',
-          'parcour_id' => 5,
+          'parcour_id' => 12,
           'centre_id' => 1,
-          'concour_id' => 2
+          'concour_id' => 1,
+          'user_id' => 1
         ]);
         $i++;
       }
-
+      /*
       foreach($ice as $candidat){
         \App\Models\Candidat::create([
           'nom' => 'Olo',

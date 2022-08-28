@@ -37,6 +37,12 @@ class ParcoursRepository extends BaseRepository{
     return $candidats;
   }
 
+  public function getCandidats( $parcour_id ){
+    $this->parcours::find($parcour_id)->candidats()
+                      ->where('concour_id', activeConcours()->id )
+                      ->get();
+  }
+
   public function findById( $id ){
     return Parcour::findOrFail($id);
   }

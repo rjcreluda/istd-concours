@@ -18,6 +18,10 @@ function niveau_etude( $n ){
   return $niveau;
 }
 
+function cycle_texte( $cycle ){
+  return $cycle == 1 ? '1er cycle' : '2nd cycle';
+}
+
 function dateToMySQL($date){
     $tabDate = explode('/' , $date);
     $date  = $tabDate[2].'-'.$tabDate[1].'-'.$tabDate[0];
@@ -30,10 +34,16 @@ function mySqlToDate($date){
     return $date;
 }
 
+function date_long_fr( $date ){ // Ex: $date = 2022-08-12
+  setlocale(LC_TIME, 'fr-FR');
+  $date = strftime('%d %B %Y', strtotime( $date ) );
+  return utf8_encode( $date );
+}
+
 function mySql_date_concours( $date1, $date2 ){
     $tabDate1 = explode('-' , $date1);
     $tabDate2 = explode('-' , $date2);
-    return $tabDate1[2] . ' et ' . $tabDate2[2] . '/' . $tabDate2[1] . '/' . $tabDate2[0];
+    return $tabDate1[2] . ' et ' . date_long_fr( $date2 );
 }
 
 function activeConcours(){

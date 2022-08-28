@@ -59,23 +59,19 @@
     <img src="logo_ist.png">
   </div>
     <div class='titre'>
-  <h4>Concours d'entrée en formation de niveau {{ ucfirst($niveau) }}</h4>
+  <h4>Concours d'entrée en formation de niveau {{ strtoupper($niveau) }}</h4>
     <h4>Session du {{ mySql_date_concours($concours_date[0], $concours_date[1]) }}</h4>
   <h4>Centre {{ $centre->lieu }}</h4>
-  @isset( $salle )
-    <h4>Salle: {{ $salle->reference }}</h4>
-  @endisset
   @isset( $jury )
     <h4>Jury: {{ $jury->nom }}</h4>
   @endisset
-  <h4>Date:_____________ Epreuve:____________________________ Heure:_______________</h4>
+  <h4>Parcours: {{ $parcour->nom }} ({{ $parcour->code }})</h4>
     </div>
     <div class='tableau'>
         <table class='liste'>
             <tr style="font-weight: bold;background:lightgrey;">
                 <td>Numéro d'inscriptions</td>
                 <td>Nom et prénom</td>
-        <td>Parcours</td>
                 <td>Salle</td>
             </tr>
 
@@ -83,15 +79,17 @@
           <tr>
             <td>{{ $candidat->numInscription }}</td>
             <td>{{ $candidat->nomComplet }}</td>
-            <td>{{ $candidat->salle->reference }}</td>
-            <td></td>
+            <td>
+              @if( $candidat->salle )
+                  {{ $candidat->salle->reference }}
+              @endif
+            </td>
           </tr>
         @endforeach
         @if( count($candidats) <= 25 )
           @for($i = 1; $i < 25 - count($candidats) ; $i++ )
           <tr>
             <td></td>
-            <td style='width:250px;'></td>
             <td></td>
             <td></td>
           </tr>

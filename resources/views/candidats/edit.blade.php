@@ -125,13 +125,20 @@
                                     <div class="form-group">
                                         <label for="candidatBacc">Candidat</label>
                                         <select name="candidatBacc" id="candidatBacc" class="form-control">
-                                            <option value=""></option>
-                                            <option value="Non  bachelier">Non bachelier</option>
+                                            <option></option>
                                             <option value="Bachelier"
-                                                @if ( $candidat->candidatBacc == 'Bachelier' )
+                                            @if ( $candidat->candidatBacc == 'Bachelier' )
+                                                 selected
+                                                @endif>Bachelier</option>
+                                            <option value="Entreprise"
+                                            @if ( $candidat->candidatBacc == 'Entreprise' )
+                                                 selected
+                                                @endif>Entreprise</option>
+                                            <option value="ecole"
+                                                @if ( $candidat->candidatBacc == 'ecole' )
                                                  selected
                                                 @endif
-                                            >Bachelier</option>
+                                            >Ecole</option>
                                         </select>
                                     </div>
                                 </div>
@@ -180,6 +187,16 @@
                                                  selected
                                                 @endif
                                             >Tech. GC</option>
+                                            <option value="S"
+                                            @if ( $candidat->serieBacc == 'S' )
+                                                 selected
+                                                @endif
+                                            >S</option>
+                                            <option value="L"
+                                            @if ( $candidat->serieBacc == 'L' )
+                                                 selected
+                                                @endif
+                                            >L</option>
                                         </select>
                                     </div>
                                 </div>
@@ -198,6 +215,11 @@
                                                  selected
                                                 @endif
                                             >Assez-Bien</option>
+                                            <option value="Assez"
+                                            @if ( $candidat->mentionBacc == 'Assez' )
+                                                 selected
+                                                @endif
+                                            >Assez</option>
                                             <option value="Bien"
                                             @if ( $candidat->mentionBacc == 'Bien' )
                                                  selected

@@ -71,25 +71,50 @@ class ConvocationController extends Controller
       ->with('title', 'Impression par jour');
   }
 
-  // Appercu PDF avant impression
+  // Appercu PDF avant impression, dts
   public function preview(Request $request, Parcour $parcour){
     $pdf = new Html2Pdf();
     $pdf->setDefaultFont('Arial');
     $data = array();
     $data['parcours'] = $parcour;
+    $ecole = $parcour->ecole;
     $data['candidats'] = $this->parcoursRepo->candidats( $parcour->id );
-    $test = $data['candidats'][0];
+    //$test = $data['candidats'][0];
+    $date_concours = $data['candidats'][0]->dateConcours;
     set_time_limit(300);
-    //dd( $test );
     setlocale(LC_TIME, 'fr-FR');
     $now = utf8_encode( strftime('%d %B %Y')) ;
     //dd($now);
-    $content = view('convocation.print-preview', [
-      'candidats' => $data['candidats'],
-      'date_actuel' => $now ])->render();
+    switch( $parcour->niveau ){
+      case 1:
+        $content = view('convocation.print-preview', [
+        'candidats' => $data['candidats'],
+        'parcours' => $parcour,
+        'ecole' => $ecole,
+        'date_actuel' => $now,
+        'date_concours' => $date_concours ])->render();
+        break;
+      case 2:
+        $content = view('convocation.print-dtss', [
+        'candidats' => $data['candidats'],
+        'parcours' => $parcour,
+        'ecole' => $ecole,
+        'date_actuel' => $now,
+        'date_concours' => $date_concours ])->render();
+        break;
+      case 3:
+        $content = view('convocation.print-ing', [
+        'candidats' => $data['candidats'],
+        'parcours' => $parcour,
+        'ecole' => $ecole,
+        'date_actuel' => $now,
+        'date_concours' => $date_concours ])->render();
+        break;
+    }
+
     $pdf->writeHTML( $content );
     $str = $pdf->output('', 'S');
-    $fichier = $parcour->code."-print-".date('dmy').".pdf";
+    $fichier = "convocation-" . $parcour->code . "-print-" . date('dmy') . ".pdf";
     return response($str)->header('Content-Type', 'application/pdf')
                   ->header('Content-Length', strlen($str))
                   ->header('Content-Disposition', 'inline; filename="'.$fichier.'"');

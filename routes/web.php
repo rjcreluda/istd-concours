@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CandidatsController;
 use App\Http\Controllers\ConvocationController;
@@ -36,9 +37,7 @@ Route::get('/home', function(){
 });
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::prefix('dashboard')->middleware('auth')->group( function(){
-    Route::get('/', function(){
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('candidats', CandidatsController::class);
 
     Route::get('print/preview', [ImpressionController::class, 'print'])->name('print.preview');
@@ -63,7 +62,7 @@ Route::prefix('dashboard')->middleware('auth')->group( function(){
     Route::get('fiche-presence/voir/{centre}/{salle?}', [FichePresenceController::class, 'voir'])->name('fiche.centre');
     Route::get('fiche-presence/voir-jury/{centre}/{jury?}', [FichePresenceController::class, 'voir_jury'])->name('fiche.jury');
 
-    // Liste candidats pur affiche
+    // Liste candidats pour affiche
     Route::get('liste-candidats/centre-exam', [AfficheListeCandidatsController::class, 'centre_examen'])->name('liste_candidat.centre_exam');
     Route::get('liste-candidats/fiche/presence', [AfficheListeCandidatsController::class, 'index'])->name('liste_candidat.centres');
     Route::get('liste-candidats/voir/{centre}/{parcours?}', [AfficheListeCandidatsController::class, 'voir'])->name('liste_candidat.centre');

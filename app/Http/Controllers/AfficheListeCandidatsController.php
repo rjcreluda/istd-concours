@@ -45,11 +45,14 @@ class AfficheListeCandidatsController extends Controller
       $parcoursRepository = new ParcoursRepository();
       $all_parcours = [];
       foreach( $parcoursRepository->getAll() as $p ){
+        $nbr_candidat = 0;
         $all_parcours[] = (object) [
           'id' => $p->id,
           'nom' => $p->nom,
           'code' => $p->code,
-          'candidat_count' => count( $parcoursRepository->candidats( $p->id ) )
+          'candidat_count' => $candidats->filter( function($c) use($p){
+            return $p->id == $c->parcour_id;
+          } )->count()
         ];
       }
       //dd( $all_parcours );
@@ -88,7 +91,7 @@ class AfficheListeCandidatsController extends Controller
       }*/
 
     }
-    else{
+    else{ // Parcour not null
       $candidats = Candidat::current()->where('centre_id', $centre->id)->where('parcour_id', $parcours->id)->get();
       //dd($candidats[0]);
       return view('liste-candidat-par-salle.voir')
@@ -100,6 +103,7 @@ class AfficheListeCandidatsController extends Controller
     }
 
   }
+
 
   public function voir_jury(Request $request, Centre $centre, Jury $jury){
 

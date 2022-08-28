@@ -35,7 +35,7 @@
                         </select>
                         @isset( $parcour )
                         <span class="pr-3 pl-2">Parcours</span>
-                        <select name="salle_id" id="salles">
+                        <select name="parcour_id" id="parcours">
                             @foreach($parcours as $p)
                             <option value="{{$p->id}}"
                             @if( $p->id == $parcour->id)
@@ -47,7 +47,7 @@
                         @endisset
                     </div>
                     @if( isset($parcour) )
-                        <a href="{{ route('print.preview') }}?type=liste-candidat&centre_id={{$centre->id}}&parcour_id={{$parcour->id}}&niveau={{ $niveau }}" class="btn btn-default">Imprimer la fiche</a>
+                        <a href="{{ route('print.preview') }}?type=liste-candidat&centre_id={{$centre->id}}&parcour_id={{$parcour->id}}&niveau={{ $parcour->niveau }}" class="btn btn-default">Imprimer la fiche</a>
                     @endif
 
                 </div>
@@ -71,8 +71,12 @@
                                 @if( $concour_active->num_auto )
                                 <td>{{ $c->numInscription }}</td>
                                 @endif
-                                <td>{{ $c->nom }} {{ $c->prenom }}</td>
-                                <td>{{ $c->salle->reference }}</td>
+                                <td>{{ $c->nomComplet }}</td>
+                                <td>
+                                    @if( $c->salle )
+                                        {{ $c->salle->reference }}
+                                    @endif
+                                </td>
                                 <td></td>
                             </tr>
                             @endforeach
@@ -101,7 +105,7 @@
             let centre_id = $(this).val();
             let current_url = window.location.href;
 
-            let url = window.location.origin + '/dashboard/fiche-presence/voir' + '/' + centre_id;// + '?cycle=' + cycle;
+            let url = window.location.origin + '/dashboard/liste-candidats/voir' + '/' + centre_id;// + '?cycle=' + cycle;
             window.location.href = url;
         });
 
@@ -111,7 +115,7 @@
             let current_url = window.location.href;
             let sub_url = current_url.substring(0, current_url.lastIndexOf('/'))
             console.log(`Sub url: ${sub_url}`)
-            let url = sub_url + '/' + salle_id;
+            let url = sub_url + '/' + parcour_id;
             window.location.href = url;
         });
     </script>
