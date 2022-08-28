@@ -48,7 +48,7 @@
                                 @if( !$concours->salle_auto )
                                 <a href="javascript:;" class="btn btn-default btn-sm btn-modal" data-toggle="modal" data-target="#exampleModal2">Générer</a>
                                 @else
-                                    {{-- <a href="javascript:;" class="btn-modal" data-toggle="modal" data-target="#exampleModal2">re-Générer</a> --}}
+                                    {{-- <a href="javascript:;" class="btn-sm btn-modal" data-toggle="modal" data-target="#exampleModal2">Re-générer</a> --}}
                                 @endif
                             </li>
                             <li class="mb-2">Attribution de jury <span class="small">( cas 2nd cycle )</span>: {{ $concours->jury_generated }}

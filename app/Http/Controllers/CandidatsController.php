@@ -13,6 +13,9 @@ use App\Repositories\ParcoursRepository;
 
 class CandidatsController extends Controller
 {
+    public function __construct(){
+      $this->middleware('admin')->only('attribution');
+    }
     /**
      * Display a listing of the resource.
      *

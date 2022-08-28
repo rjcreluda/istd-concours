@@ -28,8 +28,10 @@
                     @foreach($ecoles as $ecole)
                     <li><a href="{{ route('candidats.ecole', ['ecole' => $ecole->id])}}">{{ $ecole->code }}</a></li>
                     @endforeach
+                    @admin
                     <li><a href="{{ route('salles.list') }}">Liste par salle</a></li>
                     <li><a href="{{ route('candidats.attribution') }}">Attribution</a></li>
+                    @endif
                 </ul>
             </li>
             @admin

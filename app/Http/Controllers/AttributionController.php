@@ -11,6 +11,7 @@ use App\Models\Jury;
 
 class AttributionController extends Controller
 {
+
     public function attribuer_numero_cadidat(){
       $concour_active = Concour::active()->get()->first();
       $parcours = Parcour::has('Candidats')->get();
