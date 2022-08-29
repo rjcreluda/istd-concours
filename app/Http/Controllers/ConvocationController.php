@@ -40,6 +40,33 @@ class ConvocationController extends Controller
       ->with('title', 'Impression convocation par parcours');
   }
 
+  // Liste de tout candidats
+  public function liste_candidats(){
+
+    $data = array();
+    /*$candidats = DB::select(
+      'select id, numInscription, nom, prenom from candidats where concour_id = ?',
+      [activeConcours()->id]
+    );*/
+    $candidats = DB::table('parcours')
+                      ->join('candidats', 'parcours.id', '=', 'candidats.parcour_id')
+                      ->select('parcours.code as parcour', 'candidats.id', 'candidats.nom', 'candidats.prenom', 'candidats.numInscription', 'candidats.concour_id')
+                      ->where('candidats.concour_id', '=', activeConcours()->id)
+                      ->get();
+    //dd($candidats);
+    /*foreach( $this->parcoursRepo->getAll() as $p ){
+      //$count = Candidat::
+      $data[] = (object) array(
+        'id' => $p->id,
+        'nom' => $p->nom,
+        'nbr_candidats' => count( $this->parcoursRepo->candidats( $p->id ) )
+      );
+    }*/
+    return view('convocation.liste-candidats')
+      ->with('candidats', $candidats)
+      ->with('title', 'Impression convocation un à un');
+  }
+
   public function impression_par_date( Request $request ){
     $date = $request->get('date') ? dateToMySQL( $request->get('date') ) : null;
     $data = array();
@@ -118,8 +145,54 @@ class ConvocationController extends Controller
     return response($str)->header('Content-Type', 'application/pdf')
                   ->header('Content-Length', strlen($str))
                   ->header('Content-Disposition', 'inline; filename="'.$fichier.'"');
-    /*return view('convocation.print-preview')
-      ->with('parcour', $parcour)
-      ->with('title', 'Impression convocation par parcours');*/
+  }
+
+  // Appercu PDF avant impression, candidat individuel
+  public function preview_candidat(Request $request, Candidat $candidat){
+    $pdf = new Html2Pdf();
+    $pdf->setDefaultFont('Arial');
+    $data = array();
+    $parcour = $candidat->parcour;
+    $data['parcours'] = $parcour;
+    $ecole = $parcour->ecole;
+    $data['candidats'] = [$candidat];
+    $date_concours = $candidat->dateConcours;
+    set_time_limit(300);
+    setlocale(LC_TIME, 'fr-FR');
+    $now = utf8_encode( strftime('%d %B %Y')) ;
+    //dd($now);
+    switch( $parcour->niveau ){
+      case 1:
+        $content = view('convocation.print-preview', [
+        'candidats' => $data['candidats'],
+        'parcours' => $parcour,
+        'ecole' => $ecole,
+        'date_actuel' => $now,
+        'date_concours' => $date_concours ])->render();
+        break;
+      case 2:
+        $content = view('convocation.print-dtss', [
+        'candidats' => $data['candidats'],
+        'parcours' => $parcour,
+        'ecole' => $ecole,
+        'date_actuel' => $now,
+        'date_concours' => $date_concours ])->render();
+        break;
+      case 3:
+        $content = view('convocation.print-ing', [
+        'candidats' => $data['candidats'],
+        'parcours' => $parcour,
+        'ecole' => $ecole,
+        'date_actuel' => $now,
+        'date_concours' => $date_concours ])->render();
+        break;
+    }
+
+    $pdf->writeHTML( $content );
+    $str = $pdf->output('', 'S');
+    $fichier = "convocation-" . str_replace(' ',  '-', strtolower($candidat->nom)) . "-print-" . date('dmy') . ".pdf";
+    return response($str)->header('Content-Type', 'application/pdf')
+                  ->header('Content-Length', strlen($str))
+                  ->header('Content-Disposition', 'inline; filename="'.$fichier.'"');
   }
 }

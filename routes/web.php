@@ -49,6 +49,8 @@ Route::prefix('dashboard')->middleware('auth')->group( function(){
     Route::get('convocation/parcours/{parcour}/preview', [ConvocationController::class, 'preview'])->name('convocation.preview');
     Route::get('convocation/par_date', [ConvocationController::class, 'impression_par_date'])->name('convocation.par_date');
     Route::get('convocation/par_jour', [ConvocationController::class, 'impression_par_jour'])->name('convocation.par_jour');
+    Route::get('convocation/un-a-un', [ConvocationController::class, 'liste_candidats'])->name('convocation.un_a_un');
+    Route::get('convocation/candidat/{candidat}/preview', [ConvocationController::class, 'preview_candidat'])->name('convocation.preview-candidat');
 
     // Gestion candidats
     Route::get('candidats/ecole/{ecole}', [CandidatsController::class, 'ecole'])->name('candidats.ecole');
