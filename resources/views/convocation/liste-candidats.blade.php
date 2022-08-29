@@ -19,6 +19,8 @@
                                 <th>num Inscription</th>
                                 <th>Nom et prenom(s)</th>
                                 <th>Parcours</th>
+                                <th>Centre</th>
+                                <th>Date Saisie</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -27,6 +29,8 @@
                             <td>{{ $c->numInscription }}</td>
                             <td>{{ strtoupper($c->nom) }} {{ ucwords($c->prenom) }}</td>
                             <td>{{ $c->parcour }}</td>
+                            <td>{{ $c->centre }}</td>
+                            <td>{{ $c->date_saisie }}</td>
                             <td>
                                 <div class="btn-group">
                                 <a href="{{ route('convocation.preview-candidat', ['candidat' => $c->id])}}">
@@ -42,6 +46,8 @@
                                 <th>num Inscription</th>
                                 <th>Nom et prenom(s)</th>
                                 <th>Parcours</th>
+                                <th>Centre</th>
+                                <th>Date Saisie</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>

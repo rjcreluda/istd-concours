@@ -10,6 +10,8 @@ use App\Models\Parcour;
 use App\Repositories\ParcoursRepository;
 use Spipu\Html2Pdf\Html2Pdf;
 
+use Illuminate\Support\Carbon;
+
 class ConvocationController extends Controller
 {
   public function __construct(){
@@ -42,26 +44,20 @@ class ConvocationController extends Controller
 
   // Liste de tout candidats
   public function liste_candidats(){
-
+    //Carbon::setLocale('fr');
     $data = array();
-    /*$candidats = DB::select(
-      'select id, numInscription, nom, prenom from candidats where concour_id = ?',
-      [activeConcours()->id]
-    );*/
-    $candidats = DB::table('parcours')
-                      ->join('candidats', 'parcours.id', '=', 'candidats.parcour_id')
-                      ->select('parcours.code as parcour', 'candidats.id', 'candidats.nom', 'candidats.prenom', 'candidats.numInscription', 'candidats.concour_id')
+    $candidats = DB::table('candidats')
+                      ->join('parcours', 'parcours.id', '=', 'candidats.parcour_id')
+                      ->join('centres', 'candidats.centre_id', '=', 'centres.id')
+                      ->select('candidats.id', 'candidats.nom', 'candidats.prenom', 'candidats.numInscription', 'candidats.created_at as date_saisie', 'candidats.concour_id', 'parcours.code as parcour', 'centres.lieu as centre')
                       ->where('candidats.concour_id', '=', activeConcours()->id)
                       ->get();
+    setlocale(LC_TIME, 'fr-FR');
+    $candidats = $candidats->map( function($c){
+      $c->date_saisie = utf8_encode( strftime('%d %B %Y %H:%M', strtotime($c->date_saisie)) );
+      return $c;
+    });
     //dd($candidats);
-    /*foreach( $this->parcoursRepo->getAll() as $p ){
-      //$count = Candidat::
-      $data[] = (object) array(
-        'id' => $p->id,
-        'nom' => $p->nom,
-        'nbr_candidats' => count( $this->parcoursRepo->candidats( $p->id ) )
-      );
-    }*/
     return view('convocation.liste-candidats')
       ->with('candidats', $candidats)
       ->with('title', 'Impression convocation un à un');
