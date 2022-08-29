@@ -56,8 +56,8 @@
                 </ul>
             </li>
 
-            <li><a href="{{ route('candidats.saisit-du-jour')}}" class="waves-effect"><i data-icon=")" class="ti-calendar mr-2"></i> <span class="hide-menu">Saisie du jour</span></a>
-            </li>
+            {{-- <li><a href="{{ route('candidats.saisit-du-jour')}}" class="waves-effect"><i data-icon=")" class="ti-calendar mr-2"></i> <span class="hide-menu">Saisie du jour</span></a>
+            </li> --}}
             @endif
 
             @admin
