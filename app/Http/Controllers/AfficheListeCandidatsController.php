@@ -61,39 +61,9 @@ class AfficheListeCandidatsController extends Controller
                     ->with('centres', $centres )
                     ->with('parcour', $parcours )
                     ->with('parcours', $all_parcours );
-                    //->with('candidats', $candidats )
-                    //->with('cycle', $c);
-      /*$candidats = $candidats->filter( function( $candidat ) use($cycle){
-        return $candidat->cycle == $cycle;
-      } );*/
-      //dd($candidats);
-      /*if($centre->lieu != 'Antsiranana' )
-        return view('liste-candidat-par-salle.voir')->with('centre', $centre)
-                    ->with('centres', $centres )
-                    ->with('candidats', $candidats )
-                    ->with('cycle', $c);*/
-      /*if( $cycle == 1 ){
-        return view('liste-candidat-par-salle.liste-salle')
-                    ->with('centre', $centre)
-                    ->with('centres', $centres )
-                    ->with('salle', $salle )
-                    ->with('salles', Salle::all() )
-                    ->with('candidats', $candidats )
-                    ->with('cycle', $c);
-      }
-      else if( $cycle == 2 ){
-        return view('liste-candidat-par-salle.liste-jury')
-                    ->with('centre', $centre)
-                    ->with('centres', $centres )
-                    ->with('jury', Jury::all() )
-                    ->with('candidats', $candidats )
-                    ->with('cycle', $c);
-      }*/
-
     }
     else{ // Parcour not null
       $candidats = Candidat::current()->where('centre_id', $centre->id)->where('parcour_id', $parcours->id)->get();
-      //dd($candidats[0]);
       return view('liste-candidat-par-salle.voir')
                     ->with('centre', $centre)
                     ->with('centres', $centres )

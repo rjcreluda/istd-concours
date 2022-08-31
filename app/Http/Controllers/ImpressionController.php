@@ -70,7 +70,7 @@ class ImpressionController extends Controller
           'concours_date' => array( $cycle_1[0]->date_1, $cycle_1[0]->date_2 ),
           'centre' => $centre,
           'parcour' => $parcour,
-          'niveau' => niveau_etude( $parcour->niveau )
+          'niveau_cycle' => niveau_cycle( $parcour->niveau )
         ];
       $fichier = 'liste-candidats-'.$parcour->code."-print-".date('dmy').".pdf";
         return array(

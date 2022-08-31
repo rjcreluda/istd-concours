@@ -21,21 +21,21 @@
     margin-top: 20px;
     margin-left: 450px;
   }
-    .liste{
-        border-collapse: collapse;
-        font-size:15px;
-    }
-    .liste tr td{
-        border: 1px solid;
-    height:20px;
-    vertical-align:middle;
-    }
+  .liste{
+      border-collapse: collapse;
+      font-size:15px;
+  }
+  .liste tr td{
+      border: 1px solid;
+      height:20px;
+      vertical-align:middle;
+  }
   .titre{
     margin-top: 20px;
   }
-    .titre h4{
-        margin-top:-14px;
-    }
+  .titre h4{
+      margin-top:-14px;
+  }
 </style>
 
 <page backtop="10mm" backleft="10mm" backright="10mm" backbottom="10mm" footer="page;">
@@ -59,7 +59,7 @@
     <img src="logo_ist.png">
   </div>
     <div class='titre'>
-  <h4>Concours d'entrée en formation de niveau {{ strtoupper($niveau) }}</h4>
+  <h4>Concours d'entrée en formation de niveau {{ $niveau_cycle }}</h4>
     <h4>Session du {{ mySql_date_concours($concours_date[0], $concours_date[1]) }}</h4>
   <h4>Centre {{ $centre->lieu }}</h4>
   @isset( $jury )
@@ -68,10 +68,10 @@
   <h4>Parcours: {{ $parcour->nom }} ({{ $parcour->code }})</h4>
     </div>
     <div class='tableau'>
-        <table class='liste'>
+        <table class='liste' style="width: 100%;">
             <tr style="font-weight: bold;background:lightgrey;">
                 <td>Numéro d'inscriptions</td>
-                <td>Nom et prénom</td>
+                <td width="465">Nom et prénom</td>
                 <td>Salle</td>
             </tr>
 

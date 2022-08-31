@@ -22,6 +22,10 @@ function cycle_texte( $cycle ){
   return $cycle == 1 ? '1er cycle' : '2nd cycle';
 }
 
+function niveau_cycle( $cycle ){
+  return $cycle == 1 ? 'premier cycle' : 'seconde cycle';
+}
+
 function dateToMySQL($date){
     $tabDate = explode('/' , $date);
     $date  = $tabDate[2].'-'.$tabDate[1].'-'.$tabDate[0];
