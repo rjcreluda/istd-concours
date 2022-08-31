@@ -7,6 +7,7 @@ use App\Models\Candidat;
 use App\Models\Parcour;
 use App\Models\Matiere;
 use App\Models\Note;
+use App\Repositories\ParcoursRepository;
 
 class NotesController extends Controller
 {
@@ -15,9 +16,21 @@ class NotesController extends Controller
     }
     public function transcription($parcour){
       $p = Parcour::findOrFail($parcour);
+      $ecole = $p->ecole;
       // Listes des matieres
       $matieres = array();
-      $data = Matiere::where('ecole_id', $p->ecole_id)->get();
+      // Matièers pour EGI et EGCN sont les mêmes
+      // Si EGCN alors on prend la liste des matiere de l'EGI
+      switch( $ecole->id ){
+        case 1: // EGI
+          $matiere_ecole_id = 1; break;
+        case 2: // EGMCS
+          $matiere_ecole_id = 2; break;
+        case 3: //EGCN
+          $matiere_ecole_id = 1; break;
+      }
+      $data = Matiere::where('ecole_id', $matiere_ecole_id)->get();
+
       foreach($data as $matiere){
         $matieres[] = (object) [
           'id' => $matiere->id,
@@ -29,9 +42,9 @@ class NotesController extends Controller
       // Liste des candidats
       $candidats = array();
       $candidats_liste = Candidat::current()->where('parcour_id', $p->id)->get();
-      //dump($candidats);
 
-      $all_parcours = Parcour::where('ecole_id', $p->ecole_id)->get();
+      //$all_parcours = Parcour::where('ecole_id', $p->ecole_id)->get();
+      $all_parcours = ParcoursRepository::getParcoursByCycle( 1 );
       if( count($candidats_liste) < 1 ){
         return view('notes.aucun')->with('parcours', $p)->with('parcours_list', $all_parcours);
       }
@@ -48,7 +61,7 @@ class NotesController extends Controller
       foreach ($candidats_liste as $candidat) {
         // Getting candidat note
         $notes = Note::where('candidat_id', $candidat->id)->get()->toArray();
-
+        //dd($notes);
         //$mode = Note::UPDATE_MODE;
         // If the candidat has no notes in database, that means
         // the database query shoulD be INSERT so UPDATE query is false
@@ -77,10 +90,7 @@ class NotesController extends Controller
           $item['point'] = str_replace('.', ',', $item['point']);
           return $item;
         } );
-        //dd($test->toArray());
-        //$a = 2.5;
-        //$b = 3;
-        //dd( $a+$b );
+
         $candidats[] = (object) [
             'id' => $candidat->id,
             'rang' => $rang,

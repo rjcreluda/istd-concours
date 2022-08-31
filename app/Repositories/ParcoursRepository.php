@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Parcour;
+use App\Models\Ecole;
 
 class ParcoursRepository extends BaseRepository{
   protected $parcours;
@@ -48,12 +49,30 @@ class ParcoursRepository extends BaseRepository{
   }
 
   /**
-   * Get lists of parcours in 2nd cycle
+   * Get lists of parcours in 2nd cycle: 3ème anné & Ingénieur
    * @param null
    * @return Parcour $parcours - list of parcours
    * */
   public function getSecondCycle(){
     return Parcour::where('cycle', 2)->get();
+  }
+
+  /**
+   * Get lists of parcours in  cycle
+   * @param Integer $cycle - (1: premier cycle, 2: seconde cycle)
+   * @return Parcour $parcours - list of parcours
+   * */
+  public static function getParcoursByCycle( $cycle, $ecole_code=null ){
+    $cycle = (int) $cycle;
+    if( $cycle == 0 || ($cycle != 1 && $cycle != 2) )
+      return [];
+    $ecole = $ecole_code != null ? Ecole::where('code', $ecole_code)->get()->first() : null;
+    $parcours = Parcour::where('cycle', $cycle)
+                        ->when( $ecole_code, function( $query ) use( $ecole ) {
+                          return $query->where('ecole_id', $ecole->id);
+                        } )
+                        ->get();
+    return $parcours;
   }
 
   public function getByEcole( $ecole_id ){

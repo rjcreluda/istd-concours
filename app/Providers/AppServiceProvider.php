@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Blade;
 use App\Models\Ecole;
 use App\Models\Parcour;
 use App\Models\Concour;
+use App\Repositories\ParcoursRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,9 +36,9 @@ class AppServiceProvider extends ServiceProvider
         });
         view()->composer('layouts.sidebar', function($view) {
             $view->with('ecoles', Ecole::all());
-            $view->with('parcours_egi', Parcour::where('ecole_id', 1)->get());
-            $view->with('parcours_egmcs', Parcour::where('ecole_id', 2)->get());
-            $view->with('parcours_egcn', Parcour::where('ecole_id', 3)->get());
+            $view->with('parcours_egi', ParcoursRepository::getParcoursByCycle(1, 'EGI'));
+            $view->with('parcours_egmcs', ParcoursRepository::getParcoursByCycle(1, 'EGMCS'));
+            $view->with('parcours_egcn', ParcoursRepository::getParcoursByCycle(1, 'EGCN'));
         });
         Blade::if('admin', function(){
             return auth()->user()->type == 'admin';

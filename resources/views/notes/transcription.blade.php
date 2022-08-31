@@ -12,7 +12,7 @@
 
 <!-- Page Content -->
 @section('content')
-    @include('partials.page_title', ['title' => 'Saisit des notes: parcours ' . $parcours->code])
+    @include('partials.page_title', ['title' => 'Saisit des notes > parcours ' . $parcours->code])
     <!-- /.row -->
     @include('partials.message')
     <!-- .row -->
@@ -21,14 +21,14 @@
             <div class="white-box">
                 <div class="row mb-4">
                     <div class="col-md-8 d-flex">
-                        <strong class="mr-2">Parcours: </strong>
+                        <strong class="mr-2">Parcours </strong>
                         <select id="parcours_id" >
                             @foreach($parcours_list as $p)
                             <option value="{{$p->id}}"
                             @if( $p->id == $parcours->id)
                             selected
                             @endif
-                            >{{ $p->nom }}</option>
+                            >{{ $p->code }} - {{ $p->nom }}</option>
                             @endforeach
                         </select>
                     </div>
